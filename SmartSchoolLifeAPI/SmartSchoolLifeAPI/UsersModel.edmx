@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SmartSchoolsModel2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartSchools.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffID" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="SchoolID" Type="int" />
+          <Property Name="CompanyID" Type="int" />
+        </EntityType>
+        <EntityContainer Name="SmartSchoolsModel2StoreContainer">
+          <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Users].[UserID] AS [UserID], 
+    [Users].[StaffID] AS [StaffID], 
+    [Users].[UserName] AS [UserName], 
+    [Users].[UserType] AS [UserType], 
+    [Users].[Password] AS [Password], 
+    [Users].[SchoolID] AS [SchoolID], 
+    [Users].[CompanyID] AS [CompanyID]
+    FROM [dbo].[Users] AS [Users]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SmartSchoolsModel2" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StaffID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="CompanyID" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="SmartSchoolsEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.User" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SmartSchoolsModel2StoreContainer" CdmEntityContainer="SmartSchoolsEntities3">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SmartSchoolsModel2.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

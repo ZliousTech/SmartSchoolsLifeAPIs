@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SmartSchoolsModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartSchools.dbo.BusTrackNavigation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BusTrackNavigation">
+          <Key>
+            <PropertyRef Name="MoveSequnce" />
+          </Key>
+          <Property Name="MoveSequnce" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="SchoolID" Type="int" />
+          <Property Name="BusNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoveDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoveTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="BusSpeed" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoadSpeed" Type="nvarchar" MaxLength="50" />
+          <Property Name="FuelLevel" Type="float" />
+          <Property Name="StudentInBus" Type="nvarchar" MaxLength="10" />
+          <Property Name="TripNumPerDay" Type="int" />
+        </EntityType>
+        <EntityContainer Name="SmartSchoolsModel1StoreContainer">
+          <EntitySet Name="BusTrackNavigation" EntityType="Self.BusTrackNavigation" store:Type="Tables" Schema="dbo">
+            
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SmartSchoolsModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SmartSchoolsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BusTrackNavigations" EntityType="SmartSchoolsModel1.BusTrackNavigation" />
+        </EntityContainer>
+        <EntityType Name="BusTrackNavigation">
+          <Key>
+            <PropertyRef Name="MoveSequnce" />
+          </Key>
+          <Property Name="MoveSequnce" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="BusNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoveDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoveTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="BusSpeed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoadSpeed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FuelLevel" Type="Double" />
+          <Property Name="StudentInBus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TripNumPerDay" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SmartSchoolsModel1StoreContainer" CdmEntityContainer="SmartSchoolsEntities1">
+          <EntitySetMapping Name="BusTrackNavigations">
+            <EntityTypeMapping TypeName="SmartSchoolsModel1.BusTrackNavigation">
+              <MappingFragment StoreEntitySet="BusTrackNavigation">
+                <ScalarProperty Name="TripNumPerDay" ColumnName="TripNumPerDay" />
+                <ScalarProperty Name="StudentInBus" ColumnName="StudentInBus" />
+                <ScalarProperty Name="FuelLevel" ColumnName="FuelLevel" />
+                <ScalarProperty Name="RoadSpeed" ColumnName="RoadSpeed" />
+                <ScalarProperty Name="BusSpeed" ColumnName="BusSpeed" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="MoveTime" ColumnName="MoveTime" />
+                <ScalarProperty Name="MoveDate" ColumnName="MoveDate" />
+                <ScalarProperty Name="BusNumber" ColumnName="BusNumber" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="MoveSequnce" ColumnName="MoveSequnce" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

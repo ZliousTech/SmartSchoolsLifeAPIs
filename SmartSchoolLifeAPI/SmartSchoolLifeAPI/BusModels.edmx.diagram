@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c5a566d11248432ba2aa84d18c08accd" Name="Diagram1" ZoomLevel="51">
+        <EntityTypeShape EntityType="SmartSchoolsModel.ScheduledBusTrip" Width="2.875" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.WebUser" Width="1.5" PointX="4.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.Student" Width="1.5" PointX="7.125" PointY="1.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.SchoolBranch" Width="1.5" PointX="10.5" PointY="2.25" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.BusInfo" Width="1.5" PointX="13.125" PointY="1.875" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.Notification" Width="1.5" PointX="4.375" PointY="4.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.DeviceRegistrar" Width="1.5" PointX="6.375" PointY="7.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.AttendanceType" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.Attendance" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.CustomPropertyType" Width="1.5" PointX="8.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.DocumentCustomProperty" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.Document" Width="1.5" PointX="5.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.DocumentType" Width="1.5" PointX="11.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.DocumrntCustomizedProperty" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.SocialMediaRole" Width="1.5" PointX="13.375" PointY="10.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.SocialMediaUser" Width="1.5" PointX="10.375" PointY="13.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.SocialMediaUserRole" Width="1.5" PointX="12.375" PointY="13.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.AbsenceReason" Width="1.5" PointX="8.375" PointY="7.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.StudentSchoolDetail" Width="1.5" PointX="14.375" PointY="13.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.SystemSetting" Width="1.5" PointX="14.375" PointY="7.75" />
+        <EntityTypeShape EntityType="SmartSchoolsModel.User" Width="1.5" PointX="15.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

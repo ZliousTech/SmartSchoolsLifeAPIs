@@ -1,0 +1,1205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SmartSchoolsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AbsenceReasons">
+          <Key>
+            <PropertyRef Name="AbsenceReasonID" />
+          </Key>
+          <Property Name="AbsenceReasonArabicText" Type="nvarchar" MaxLength="255" />
+          <Property Name="AbsenceReasonEnglishText" Type="nvarchar" MaxLength="255" />
+          <Property Name="AbsenceReasonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="AttendanceItemID" />
+          </Key>
+          <Property Name="AttendanceItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolID" Type="int" />
+          <Property Name="SchoolYear" Type="nvarchar" MaxLength="4" />
+          <Property Name="StudentID" Type="nvarchar" MaxLength="255" />
+          <Property Name="AttendanceDate" Type="nvarchar" MaxLength="255" />
+          <Property Name="AttendanceType" Type="int" />
+          <Property Name="AbsenceReason" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ParentInformed" Type="int" />
+          <Property Name="ParentMessage" Type="nvarchar(max)" />
+          <Property Name="AttendanceNote" Type="nvarchar(max)" />
+          <Property Name="FirstSession" Type="int" />
+          <Property Name="SecondSession" Type="int" />
+          <Property Name="ThirdSession" Type="int" />
+          <Property Name="FourthSession" Type="int" />
+          <Property Name="FifthSession" Type="int" />
+          <Property Name="SixthSession" Type="int" />
+          <Property Name="SeventhSession" Type="int" />
+          <Property Name="EighthSession" Type="int" />
+          <Property Name="EighthSessionTimeStamp" Type="nvarchar" MaxLength="255" />
+          <Property Name="FirstSessionTimeStamp" Type="nvarchar" MaxLength="255" />
+          <Property Name="SecondSessionTimeStamp" Type="nvarchar" MaxLength="255" />
+          <Property Name="SixthSessionTimeStamp" Type="nvarchar" MaxLength="255" />
+          <Property Name="FifthSessionTimeStamp" Type="nvarchar" MaxLength="255" />
+          <Property Name="SeventhSessionTimeStamp" Type="nvarchar" MaxLength="255" />
+          <Property Name="FourthSessionTimeStamp" Type="nvarchar" MaxLength="255" />
+          <Property Name="ThirdSessionTimeStamp" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartSchools.dbo.AttendanceType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AttendanceType">
+          <Key>
+            <PropertyRef Name="AttendanceTypeID" />
+          </Key>
+          <Property Name="AttendanceTypeID" Type="int" Nullable="false" />
+          <Property Name="AttedanceTypeArabicText" Type="nvarchar" MaxLength="255" />
+          <Property Name="AttedanceTypeEnglishText" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartSchools.dbo.BusInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BusInfo">
+          <Key>
+            <PropertyRef Name="BusNo" />
+          </Key>
+          <Property Name="BusNo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SchoolID" Type="int" />
+          <Property Name="DriverID" Type="nvarchar" MaxLength="255" />
+          <Property Name="NumberofSeats" Type="int" />
+          <Property Name="BusLicenseDate" Type="datetime" />
+          <Property Name="Ownership" Type="int" />
+          <Property Name="PurchasePrice" Type="float" />
+          <Property Name="RentValue" Type="float" />
+          <Property Name="BusOwner" Type="nvarchar" MaxLength="255" />
+          <Property Name="ParkingArea" Type="int" />
+          <Property Name="StandbyDay1" Type="int" />
+          <Property Name="StandbyDay2" Type="int" />
+          <Property Name="StandbyDay3" Type="int" />
+          <Property Name="StandbyDay4" Type="int" />
+          <Property Name="StandbyDay5" Type="int" />
+          <Property Name="PicnicAllowed" Type="int" />
+          <Property Name="AttendantID" Type="nvarchar" MaxLength="255" />
+          <Property Name="SecondAttendantID" Type="nvarchar" MaxLength="255" />
+          <Property Name="BusCurrentStatus" Type="int" />
+          <Property Name="PlateNumber" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CustomPropertyTypes">
+          <Key>
+            <PropertyRef Name="CustomPropertyTypeID" />
+          </Key>
+          <Property Name="CustomPropertyTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomPropertyTypeinArabic" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustomPropertyTypeinEnglish" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="DeviceRegistrar">
+          <Key>
+            <PropertyRef Name="DeviceRegistratinId" />
+          </Key>
+          <Property Name="DeviceRegistratinId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceRegistrationCode" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsDeviceRegistrationActive" Type="int" />
+          <Property Name="OwnerID" Type="nvarchar" MaxLength="255" />
+          <Property Name="OwnerMobileNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="OwnerType" Type="nvarchar(max)" />
+          <Property Name="RegistrationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DocumentCustomProperties">
+          <Key>
+            <PropertyRef Name="CustomPropertyID" />
+          </Key>
+          <Property Name="CustomPropertyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocumentID" Type="nvarchar" MaxLength="255" />
+          <Property Name="Value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentArabicDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="DocumentEnglishDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="DocumentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocumentOwnerID" Type="nvarchar" MaxLength="255" />
+          <Property Name="DocumentOwnerType" Type="int" />
+          <Property Name="DocumentTypeID" Type="int" />
+          <Property Name="FileExtension" Type="nvarchar" MaxLength="255" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="SchoolID" Type="int" />
+        </EntityType>
+        <EntityType Name="DocumentTypes">
+          <Key>
+            <PropertyRef Name="DocumentTypeID" />
+          </Key>
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="DocumentTypeArabicDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="DocumentTypeEnglishDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="DocumentTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocumrntCustomizedProperties">
+          <Key>
+            <PropertyRef Name="CustomPropertyID" />
+          </Key>
+          <Property Name="CustomPropertyArabicDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustomPropertyCreationDate" Type="datetime" />
+          <Property Name="CustomPropertyDefaultValue" Type="nvarchar(max)" />
+          <Property Name="CustomPropertyEnglishDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustomPropertyFieldSize" Type="int" />
+          <Property Name="CustomPropertyFormat" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustomPropertyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomPropertyRequired" Type="int" />
+          <Property Name="CustomPropertyType" Type="int" />
+          <Property Name="DocumentTypeID" Type="int" />
+          <Property Name="LocalLookupID" Type="int" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="DateRead" Type="datetime" />
+          <Property Name="DateReceived" Type="datetime" />
+          <Property Name="DateSent" Type="datetime" />
+          <Property Name="DesitinationID" Type="nvarchar" MaxLength="255" />
+          <Property Name="DestinationType" Type="int" />
+          <Property Name="ImportanceLevel" Type="int" />
+          <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationText" Type="nvarchar" MaxLength="255" />
+          <Property Name="SchoolID" Type="int" />
+          <Property Name="SchoolYear" Type="nvarchar" MaxLength="4" />
+          <Property Name="SourceID" Type="nvarchar" MaxLength="255" />
+          <Property Name="SourceType" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="DateDelegated" Type="datetime" />
+          <Property Name="DateSeen" Type="datetime" />
+          <Property Name="DateReplied" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartSchools.dbo.ScheduledBusTrips' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ScheduledBusTrips">
+          <Key>
+            <PropertyRef Name="TripPassengerID" />
+          </Key>
+          <Property Name="TripPassengerID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolID" Type="int" />
+          <Property Name="SchoolYear" Type="nvarchar" MaxLength="255" />
+          <Property Name="Direction" Type="int" />
+          <Property Name="TripDate" Type="nvarchar" MaxLength="255" />
+          <Property Name="TripTime" Type="nvarchar" MaxLength="255" />
+          <Property Name="BusNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="DriverID" Type="nvarchar" MaxLength="255" />
+          <Property Name="DriverName" Type="nvarchar" MaxLength="255" />
+          <Property Name="AttendantID" Type="nvarchar" MaxLength="255" />
+          <Property Name="PassengerID" Type="nvarchar" MaxLength="255" />
+          <Property Name="PassengerType" Type="int" />
+          <Property Name="PassengerName" Type="nvarchar" MaxLength="255" />
+          <Property Name="SchoolLongitude" Type="float" />
+          <Property Name="SchoolLatitude" Type="float" />
+          <Property Name="PassengerAgeFactor" Type="int" />
+          <Property Name="PassengerLongitude" Type="float" />
+          <Property Name="PassengerLatitude" Type="float" />
+          <Property Name="PassengerPhoto" Type="image" />
+          <Property Name="PassengerOnBoard" Type="int" />
+          <Property Name="PassengeroffBoard" Type="int" />
+          <Property Name="PassengeronBoardDateTime" Type="datetime" />
+          <Property Name="PassengeroffBoardDateTime" Type="datetime" />
+          <Property Name="AttendantLatitude" Type="float" />
+          <Property Name="AttendantLongitude" Type="float" />
+          <Property Name="AttendantName" Type="nvarchar" MaxLength="255" />
+          <Property Name="DriverMobileNo" Type="nvarchar" MaxLength="255" />
+          <Property Name="AttendantMobileNo" Type="nvarchar" MaxLength="255" />
+          <Property Name="TripID" Type="bigint" />
+          <Property Name="TripEnded" Type="int" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="AttendanceStatus" Type="int" />
+          <Property Name="PickupOrder" Type="int" />
+          <Property Name="SecondAttendantID" Type="nvarchar" MaxLength="255" />
+          <Property Name="SecondAttendantLongitude" Type="float" />
+          <Property Name="SecondAttendantLatitude" Type="float" />
+          <Property Name="SecondAttendantName" Type="nvarchar" MaxLength="255" />
+          <Property Name="SecondAttendantMobileNo" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartSchools.dbo.SchoolBranches' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SchoolBranches">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="SchoolArabicName" Type="nvarchar" MaxLength="255" />
+          <Property Name="SchoolEnglishName" Type="nvarchar" MaxLength="255" />
+          <Property Name="SchoolContactNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="Country" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="255" />
+          <Property Name="Street" Type="nvarchar" MaxLength="255" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="SchoolCurrency" Type="int" />
+          <Property Name="YardArea" Type="int" />
+          <Property Name="MaxSchoolStudents" Type="int" />
+          <Property Name="ClassroomArea" Type="int" />
+          <Property Name="MaxStudentsinClassroom" Type="int" />
+          <Property Name="CurrentNumberofStudents" Type="int" />
+        </EntityType>
+        <EntityType Name="SocialMediaRoles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartSchools.dbo.SocialMediaUserRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SocialMediaUserRoles">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="255" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SocialMediaUsers">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SchoolID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="StudentArabicName" Type="nvarchar" MaxLength="255" />
+          <Property Name="StudentEnglishName" Type="nvarchar" MaxLength="255" />
+          <Property Name="NationalNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="20" />
+          <Property Name="DateofBirth" Type="datetime" />
+          <Property Name="GuardianID" Type="int" />
+          <Property Name="AccountNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="FamilyID" Type="int" />
+          <Property Name="MotherID" Type="int" />
+          <Property Name="ResidencyNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="PassportNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="Active" Type="int" />
+          <Property Name="GuardianRelationship" Type="int" />
+          <Property Name="Photo" Type="image" />
+          <Property Name="Photo_A" Type="nvarchar(max)" />
+          <Property Name="ComesWithSchoolBus" Type="int" />
+          <Property Name="GoesWithSchoolBus" Type="int" />
+          <Property Name="AddressID" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentSchoolDetails">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SchoolID" Type="int" />
+          <Property Name="DateofAdmission" Type="datetime" />
+          <Property Name="ClassID" Type="int" />
+          <Property Name="SectionID" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Results" Type="int" />
+          <Property Name="ComingBusTourID" Type="int" />
+          <Property Name="GoingBusTourID" Type="int" />
+          <Property Name="PreviousSchool" Type="nvarchar" MaxLength="255" />
+          <Property Name="ComingTourOrder" Type="int" />
+          <Property Name="GoingTourOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="SystemSettings">
+          <Key>
+            <PropertyRef Name="CurrentAcademicYear" />
+          </Key>
+          <Property Name="CurrentAcademicYear" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="DocumentsPath" Type="nvarchar" MaxLength="255" />
+          <Property Name="LastDocumentID" Type="int" />
+          <Property Name="LastStaffID" Type="int" />
+          <Property Name="LastStudentID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartSchools.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffID" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="SchoolID" Type="int" />
+          <Property Name="CompanyID" Type="int" />
+        </EntityType>
+        <EntityType Name="WebUsers">
+          <Key>
+            <PropertyRef Name="WebUserId" />
+          </Key>
+          <Property Name="ApplicationID" Type="nvarchar" MaxLength="255" />
+          <Property Name="Locked" Type="int" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="SchoolID" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserSystemID" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="WebUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SmartSchoolsModelStoreContainer">
+          <EntitySet Name="AbsenceReasons" EntityType="Self.AbsenceReasons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomPropertyTypes" EntityType="Self.CustomPropertyTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceRegistrar" EntityType="Self.DeviceRegistrar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentCustomProperties" EntityType="Self.DocumentCustomProperties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentTypes" EntityType="Self.DocumentTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumrntCustomizedProperties" EntityType="Self.DocumrntCustomizedProperties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SocialMediaRoles" EntityType="Self.SocialMediaRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SocialMediaUsers" EntityType="Self.SocialMediaUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentSchoolDetails" EntityType="Self.StudentSchoolDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemSettings" EntityType="Self.SystemSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebUsers" EntityType="Self.WebUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttendanceType" EntityType="Self.AttendanceType" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AttendanceType].[AttendanceTypeID] AS [AttendanceTypeID], 
+    [AttendanceType].[AttedanceTypeArabicText] AS [AttedanceTypeArabicText], 
+    [AttendanceType].[AttedanceTypeEnglishText] AS [AttedanceTypeEnglishText]
+    FROM [dbo].[AttendanceType] AS [AttendanceType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="BusInfo" EntityType="Self.BusInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BusInfo].[BusNo] AS [BusNo], 
+    [BusInfo].[SchoolID] AS [SchoolID], 
+    [BusInfo].[DriverID] AS [DriverID], 
+    [BusInfo].[NumberofSeats] AS [NumberofSeats], 
+    [BusInfo].[BusLicenseDate] AS [BusLicenseDate], 
+    [BusInfo].[Ownership] AS [Ownership], 
+    [BusInfo].[PurchasePrice] AS [PurchasePrice], 
+    [BusInfo].[RentValue] AS [RentValue], 
+    [BusInfo].[BusOwner] AS [BusOwner], 
+    [BusInfo].[ParkingArea] AS [ParkingArea], 
+    [BusInfo].[StandbyDay1] AS [StandbyDay1], 
+    [BusInfo].[StandbyDay2] AS [StandbyDay2], 
+    [BusInfo].[StandbyDay3] AS [StandbyDay3], 
+    [BusInfo].[StandbyDay4] AS [StandbyDay4], 
+    [BusInfo].[StandbyDay5] AS [StandbyDay5], 
+    [BusInfo].[PicnicAllowed] AS [PicnicAllowed], 
+    [BusInfo].[AttendantID] AS [AttendantID], 
+    [BusInfo].[SecondAttendantID] AS [SecondAttendantID], 
+    [BusInfo].[BusCurrentStatus] AS [BusCurrentStatus], 
+    [BusInfo].[PlateNumber] AS [PlateNumber]
+    FROM [dbo].[BusInfo] AS [BusInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ScheduledBusTrips" EntityType="Self.ScheduledBusTrips" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ScheduledBusTrips].[TripPassengerID] AS [TripPassengerID], 
+    [ScheduledBusTrips].[SchoolID] AS [SchoolID], 
+    [ScheduledBusTrips].[SchoolYear] AS [SchoolYear], 
+    [ScheduledBusTrips].[Direction] AS [Direction], 
+    [ScheduledBusTrips].[TripDate] AS [TripDate], 
+    [ScheduledBusTrips].[TripTime] AS [TripTime], 
+    [ScheduledBusTrips].[BusNumber] AS [BusNumber], 
+    [ScheduledBusTrips].[DriverID] AS [DriverID], 
+    [ScheduledBusTrips].[DriverName] AS [DriverName], 
+    [ScheduledBusTrips].[AttendantID] AS [AttendantID], 
+    [ScheduledBusTrips].[PassengerID] AS [PassengerID], 
+    [ScheduledBusTrips].[PassengerType] AS [PassengerType], 
+    [ScheduledBusTrips].[PassengerName] AS [PassengerName], 
+    [ScheduledBusTrips].[SchoolLongitude] AS [SchoolLongitude], 
+    [ScheduledBusTrips].[SchoolLatitude] AS [SchoolLatitude], 
+    [ScheduledBusTrips].[PassengerAgeFactor] AS [PassengerAgeFactor], 
+    [ScheduledBusTrips].[PassengerLongitude] AS [PassengerLongitude], 
+    [ScheduledBusTrips].[PassengerLatitude] AS [PassengerLatitude], 
+    [ScheduledBusTrips].[PassengerPhoto] AS [PassengerPhoto], 
+    [ScheduledBusTrips].[PassengerOnBoard] AS [PassengerOnBoard], 
+    [ScheduledBusTrips].[PassengeroffBoard] AS [PassengeroffBoard], 
+    [ScheduledBusTrips].[PassengeronBoardDateTime] AS [PassengeronBoardDateTime], 
+    [ScheduledBusTrips].[PassengeroffBoardDateTime] AS [PassengeroffBoardDateTime], 
+    [ScheduledBusTrips].[AttendantLatitude] AS [AttendantLatitude], 
+    [ScheduledBusTrips].[AttendantLongitude] AS [AttendantLongitude], 
+    [ScheduledBusTrips].[AttendantName] AS [AttendantName], 
+    [ScheduledBusTrips].[DriverMobileNo] AS [DriverMobileNo], 
+    [ScheduledBusTrips].[AttendantMobileNo] AS [AttendantMobileNo], 
+    [ScheduledBusTrips].[TripID] AS [TripID], 
+    [ScheduledBusTrips].[TripEnded] AS [TripEnded], 
+    [ScheduledBusTrips].[MobileNumber] AS [MobileNumber], 
+    [ScheduledBusTrips].[AttendanceStatus] AS [AttendanceStatus], 
+    [ScheduledBusTrips].[PickupOrder] AS [PickupOrder], 
+    [ScheduledBusTrips].[SecondAttendantID] AS [SecondAttendantID], 
+    [ScheduledBusTrips].[SecondAttendantLongitude] AS [SecondAttendantLongitude], 
+    [ScheduledBusTrips].[SecondAttendantLatitude] AS [SecondAttendantLatitude], 
+    [ScheduledBusTrips].[SecondAttendantName] AS [SecondAttendantName], 
+    [ScheduledBusTrips].[SecondAttendantMobileNo] AS [SecondAttendantMobileNo]
+    FROM [dbo].[ScheduledBusTrips] AS [ScheduledBusTrips]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SchoolBranches" EntityType="Self.SchoolBranches" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SchoolBranches].[SchoolID] AS [SchoolID], 
+    [SchoolBranches].[CompanyID] AS [CompanyID], 
+    [SchoolBranches].[SchoolArabicName] AS [SchoolArabicName], 
+    [SchoolBranches].[SchoolEnglishName] AS [SchoolEnglishName], 
+    [SchoolBranches].[SchoolContactNumber] AS [SchoolContactNumber], 
+    [SchoolBranches].[Country] AS [Country], 
+    [SchoolBranches].[City] AS [City], 
+    [SchoolBranches].[Street] AS [Street], 
+    [SchoolBranches].[Longitude] AS [Longitude], 
+    [SchoolBranches].[Latitude] AS [Latitude], 
+    [SchoolBranches].[SchoolCurrency] AS [SchoolCurrency], 
+    [SchoolBranches].[YardArea] AS [YardArea], 
+    [SchoolBranches].[MaxSchoolStudents] AS [MaxSchoolStudents], 
+    [SchoolBranches].[ClassroomArea] AS [ClassroomArea], 
+    [SchoolBranches].[MaxStudentsinClassroom] AS [MaxStudentsinClassroom], 
+    [SchoolBranches].[CurrentNumberofStudents] AS [CurrentNumberofStudents]
+    FROM [dbo].[SchoolBranches] AS [SchoolBranches]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SocialMediaUserRoles" EntityType="Self.SocialMediaUserRoles" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SocialMediaUserRoles].[UserID] AS [UserID], 
+    [SocialMediaUserRoles].[UserName] AS [UserName], 
+    [SocialMediaUserRoles].[RoleID] AS [RoleID]
+    FROM [dbo].[SocialMediaUserRoles] AS [SocialMediaUserRoles]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Users].[UserID] AS [UserID], 
+    [Users].[StaffID] AS [StaffID], 
+    [Users].[UserName] AS [UserName], 
+    [Users].[UserType] AS [UserType], 
+    [Users].[Password] AS [Password], 
+    [Users].[SchoolID] AS [SchoolID], 
+    [Users].[CompanyID] AS [CompanyID]
+    FROM [dbo].[Users] AS [Users]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SmartSchoolsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ScheduledBusTrip">
+          <Key>
+            <PropertyRef Name="TripPassengerID" />
+          </Key>
+          <Property Name="TripPassengerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="SchoolYear" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Direction" Type="Int32" />
+          <Property Name="TripDate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TripTime" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BusNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DriverID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DriverName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AttendantID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PassengerID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PassengerType" Type="Int32" />
+          <Property Name="PassengerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolLongitude" Type="Double" />
+          <Property Name="SchoolLatitude" Type="Double" />
+          <Property Name="PassengerAgeFactor" Type="Int32" />
+          <Property Name="PassengerLongitude" Type="Double" />
+          <Property Name="PassengerLatitude" Type="Double" />
+          <Property Name="PassengerOnBoard" Type="Int32" />
+          <Property Name="PassengeroffBoard" Type="Int32" />
+          <Property Name="PassengeronBoardDateTime" Type="DateTime" Precision="3" />
+          <Property Name="PassengeroffBoardDateTime" Type="DateTime" Precision="3" />
+          <Property Name="AttendantLatitude" Type="Double" />
+          <Property Name="AttendantLongitude" Type="Double" />
+          <Property Name="AttendantName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DriverMobileNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AttendantMobileNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TripID" Type="Int64" />
+          <Property Name="TripEnded" Type="Int32" />
+          <Property Name="MobileNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AttendanceStatus" Type="Int32" />
+          <Property Name="PickupOrder" Type="Int32" />
+          <Property Name="SecondAttendantID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SecondAttendantLongitude" Type="Double" />
+          <Property Name="SecondAttendantLatitude" Type="Double" />
+          <Property Name="SecondAttendantName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SecondAttendantMobileNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="SmartSchoolsEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ScheduledBusTrips" EntityType="Self.ScheduledBusTrip" />
+          <EntitySet Name="WebUsers" EntityType="SmartSchoolsModel.WebUser" />
+          <EntitySet Name="Students" EntityType="SmartSchoolsModel.Student" />
+          <EntitySet Name="SchoolBranches" EntityType="SmartSchoolsModel.SchoolBranch" />
+          <EntitySet Name="BusInfoes" EntityType="SmartSchoolsModel.BusInfo" />
+          <EntitySet Name="Notifications" EntityType="SmartSchoolsModel.Notification" />
+          <EntitySet Name="DeviceRegistrars" EntityType="SmartSchoolsModel.DeviceRegistrar" />
+          <EntitySet Name="AttendanceTypes" EntityType="SmartSchoolsModel.AttendanceType" />
+          <EntitySet Name="Attendances" EntityType="SmartSchoolsModel.Attendance" />
+          <EntitySet Name="CustomPropertyTypes" EntityType="SmartSchoolsModel.CustomPropertyType" />
+          <EntitySet Name="DocumentCustomProperties" EntityType="SmartSchoolsModel.DocumentCustomProperty" />
+          <EntitySet Name="Documents" EntityType="SmartSchoolsModel.Document" />
+          <EntitySet Name="DocumentTypes" EntityType="SmartSchoolsModel.DocumentType" />
+          <EntitySet Name="DocumrntCustomizedProperties" EntityType="SmartSchoolsModel.DocumrntCustomizedProperty" />
+          <EntitySet Name="SocialMediaRoles" EntityType="SmartSchoolsModel.SocialMediaRole" />
+          <EntitySet Name="SocialMediaUsers" EntityType="SmartSchoolsModel.SocialMediaUser" />
+          <EntitySet Name="SocialMediaUserRoles" EntityType="SmartSchoolsModel.SocialMediaUserRole" />
+          <EntitySet Name="AbsenceReasons" EntityType="SmartSchoolsModel.AbsenceReason" />
+          <EntitySet Name="StudentSchoolDetails" EntityType="SmartSchoolsModel.StudentSchoolDetail" />
+          <EntitySet Name="SystemSettings" EntityType="SmartSchoolsModel.SystemSetting" />
+          <EntitySet Name="Users" EntityType="SmartSchoolsModel.User" />
+        </EntityContainer>
+        <EntityType Name="WebUser">
+          <Key>
+            <PropertyRef Name="WebUserId" />
+          </Key>
+          <Property Name="ApplicationID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Locked" Type="Int32" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserSystemID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="WebUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="StudentArabicName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="StudentEnglishName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NationalNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Nationality" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DateofBirth" Type="DateTime" Precision="3" />
+          <Property Name="GuardianID" Type="Int32" />
+          <Property Name="AccountNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyID" Type="Int32" />
+          <Property Name="MotherID" Type="Int32" />
+          <Property Name="ResidencyNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Int32" />
+          <Property Name="GuardianRelationship" Type="Int32" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Photo_A" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ComesWithSchoolBus" Type="Int32" />
+          <Property Name="GoesWithSchoolBus" Type="Int32" />
+          <Property Name="AddressID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SchoolBranch">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="SchoolArabicName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolEnglishName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolContactNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="SchoolCurrency" Type="Int32" />
+          <Property Name="YardArea" Type="Int32" />
+          <Property Name="MaxSchoolStudents" Type="Int32" />
+          <Property Name="ClassroomArea" Type="Int32" />
+          <Property Name="MaxStudentsinClassroom" Type="Int32" />
+          <Property Name="CurrentNumberofStudents" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BusInfo">
+          <Key>
+            <PropertyRef Name="BusNo" />
+          </Key>
+          <Property Name="BusNo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="DriverID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NumberofSeats" Type="Int32" />
+          <Property Name="BusLicenseDate" Type="DateTime" Precision="3" />
+          <Property Name="Ownership" Type="Int32" />
+          <Property Name="PurchasePrice" Type="Double" />
+          <Property Name="RentValue" Type="Double" />
+          <Property Name="BusOwner" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ParkingArea" Type="Int32" />
+          <Property Name="StandbyDay1" Type="Int32" />
+          <Property Name="StandbyDay2" Type="Int32" />
+          <Property Name="StandbyDay3" Type="Int32" />
+          <Property Name="StandbyDay4" Type="Int32" />
+          <Property Name="StandbyDay5" Type="Int32" />
+          <Property Name="PicnicAllowed" Type="Int32" />
+          <Property Name="AttendantID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SecondAttendantID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BusCurrentStatus" Type="Int32" />
+          <Property Name="PlateNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="DateRead" Type="DateTime" Precision="3" />
+          <Property Name="DateReceived" Type="DateTime" Precision="3" />
+          <Property Name="DateSent" Type="DateTime" Precision="3" />
+          <Property Name="DesitinationID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DestinationType" Type="Int32" />
+          <Property Name="ImportanceLevel" Type="Int32" />
+          <Property Name="NotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationText" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="SchoolYear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="SourceID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SourceType" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="DateDelegated" Type="DateTime" Precision="3" />
+          <Property Name="DateSeen" Type="DateTime" Precision="3" />
+          <Property Name="DateReplied" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="DeviceRegistrar">
+          <Key>
+            <PropertyRef Name="DeviceRegistratinId" />
+          </Key>
+          <Property Name="DeviceRegistratinId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceRegistrationCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeviceRegistrationActive" Type="Int32" />
+          <Property Name="OwnerID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerMobileNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AttendanceType">
+          <Key>
+            <PropertyRef Name="AttendanceTypeID" />
+          </Key>
+          <Property Name="AttendanceTypeID" Type="Int32" Nullable="false" />
+          <Property Name="AttedanceTypeArabicText" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AttedanceTypeEnglishText" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="AttendanceItemID" />
+          </Key>
+          <Property Name="AttendanceItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="SchoolYear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="StudentID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AttendanceDate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AttendanceType" Type="Int32" />
+          <Property Name="AbsenceReason" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParentInformed" Type="Int32" />
+          <Property Name="ParentMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AttendanceNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstSession" Type="Int32" />
+          <Property Name="SecondSession" Type="Int32" />
+          <Property Name="ThirdSession" Type="Int32" />
+          <Property Name="FourthSession" Type="Int32" />
+          <Property Name="FifthSession" Type="Int32" />
+          <Property Name="SixthSession" Type="Int32" />
+          <Property Name="SeventhSession" Type="Int32" />
+          <Property Name="EighthSession" Type="Int32" />
+          <Property Name="EighthSessionTimeStamp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FirstSessionTimeStamp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SecondSessionTimeStamp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SixthSessionTimeStamp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FifthSessionTimeStamp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SeventhSessionTimeStamp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FourthSessionTimeStamp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdSessionTimeStamp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CustomPropertyType">
+          <Key>
+            <PropertyRef Name="CustomPropertyTypeID" />
+          </Key>
+          <Property Name="CustomPropertyTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomPropertyTypeinArabic" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomPropertyTypeinEnglish" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DocumentCustomProperty">
+          <Key>
+            <PropertyRef Name="CustomPropertyID" />
+          </Key>
+          <Property Name="CustomPropertyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentArabicDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentEnglishDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentOwnerID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentOwnerType" Type="Int32" />
+          <Property Name="DocumentTypeID" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="FileExtension" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DocumentType">
+          <Key>
+            <PropertyRef Name="DocumentTypeID" />
+          </Key>
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="DocumentTypeArabicDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentTypeEnglishDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DocumrntCustomizedProperty">
+          <Key>
+            <PropertyRef Name="CustomPropertyID" />
+          </Key>
+          <Property Name="CustomPropertyArabicDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomPropertyCreationDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomPropertyDefaultValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomPropertyEnglishDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomPropertyFieldSize" Type="Int32" />
+          <Property Name="CustomPropertyFormat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomPropertyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomPropertyRequired" Type="Int32" />
+          <Property Name="CustomPropertyType" Type="Int32" />
+          <Property Name="DocumentTypeID" Type="Int32" />
+          <Property Name="LocalLookupID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SocialMediaRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SocialMediaUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SocialMediaUserRole">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AbsenceReason">
+          <Key>
+            <PropertyRef Name="AbsenceReasonID" />
+          </Key>
+          <Property Name="AbsenceReasonArabicText" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AbsenceReasonEnglishText" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AbsenceReasonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="StudentSchoolDetail">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="DateofAdmission" Type="DateTime" Precision="3" />
+          <Property Name="ClassID" Type="Int32" />
+          <Property Name="SectionID" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Results" Type="Int32" />
+          <Property Name="ComingBusTourID" Type="Int32" />
+          <Property Name="GoingBusTourID" Type="Int32" />
+          <Property Name="PreviousSchool" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ComingTourOrder" Type="Int32" />
+          <Property Name="GoingTourOrder" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SystemSetting">
+          <Key>
+            <PropertyRef Name="CurrentAcademicYear" />
+          </Key>
+          <Property Name="CurrentAcademicYear" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentsPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LastDocumentID" Type="Int32" />
+          <Property Name="LastStaffID" Type="Int32" />
+          <Property Name="LastStudentID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StaffID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="CompanyID" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SmartSchoolsModelStoreContainer" CdmEntityContainer="SmartSchoolsEntities2">
+          <EntitySetMapping Name="ScheduledBusTrips">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.ScheduledBusTrip">
+              <MappingFragment StoreEntitySet="ScheduledBusTrips">
+                <ScalarProperty Name="SecondAttendantMobileNo" ColumnName="SecondAttendantMobileNo" />
+                <ScalarProperty Name="SecondAttendantName" ColumnName="SecondAttendantName" />
+                <ScalarProperty Name="SecondAttendantLatitude" ColumnName="SecondAttendantLatitude" />
+                <ScalarProperty Name="SecondAttendantLongitude" ColumnName="SecondAttendantLongitude" />
+                <ScalarProperty Name="SecondAttendantID" ColumnName="SecondAttendantID" />
+                <ScalarProperty Name="PickupOrder" ColumnName="PickupOrder" />
+                <ScalarProperty Name="AttendanceStatus" ColumnName="AttendanceStatus" />
+                <ScalarProperty Name="TripPassengerID" ColumnName="TripPassengerID" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="SchoolYear" ColumnName="SchoolYear" />
+                <ScalarProperty Name="Direction" ColumnName="Direction" />
+                <ScalarProperty Name="TripDate" ColumnName="TripDate" />
+                <ScalarProperty Name="TripTime" ColumnName="TripTime" />
+                <ScalarProperty Name="BusNumber" ColumnName="BusNumber" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="AttendantID" ColumnName="AttendantID" />
+                <ScalarProperty Name="PassengerID" ColumnName="PassengerID" />
+                <ScalarProperty Name="PassengerType" ColumnName="PassengerType" />
+                <ScalarProperty Name="PassengerName" ColumnName="PassengerName" />
+                <ScalarProperty Name="SchoolLongitude" ColumnName="SchoolLongitude" />
+                <ScalarProperty Name="SchoolLatitude" ColumnName="SchoolLatitude" />
+                <ScalarProperty Name="PassengerAgeFactor" ColumnName="PassengerAgeFactor" />
+                <ScalarProperty Name="PassengerLongitude" ColumnName="PassengerLongitude" />
+                <ScalarProperty Name="PassengerLatitude" ColumnName="PassengerLatitude" />
+                <ScalarProperty Name="PassengerOnBoard" ColumnName="PassengerOnBoard" />
+                <ScalarProperty Name="PassengeroffBoard" ColumnName="PassengeroffBoard" />
+                <ScalarProperty Name="PassengeronBoardDateTime" ColumnName="PassengeronBoardDateTime" />
+                <ScalarProperty Name="PassengeroffBoardDateTime" ColumnName="PassengeroffBoardDateTime" />
+                <ScalarProperty Name="AttendantLatitude" ColumnName="AttendantLatitude" />
+                <ScalarProperty Name="AttendantLongitude" ColumnName="AttendantLongitude" />
+                <ScalarProperty Name="AttendantName" ColumnName="AttendantName" />
+                <ScalarProperty Name="DriverMobileNo" ColumnName="DriverMobileNo" />
+                <ScalarProperty Name="AttendantMobileNo" ColumnName="AttendantMobileNo" />
+                <ScalarProperty Name="TripID" ColumnName="TripID" />
+                <ScalarProperty Name="TripEnded" ColumnName="TripEnded" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WebUsers">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.WebUser">
+              <MappingFragment StoreEntitySet="WebUsers">
+                <ScalarProperty Name="WebUserId" ColumnName="WebUserId" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserSystemID" ColumnName="UserSystemID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="GoesWithSchoolBus" ColumnName="GoesWithSchoolBus" />
+                <ScalarProperty Name="ComesWithSchoolBus" ColumnName="ComesWithSchoolBus" />
+                <ScalarProperty Name="Photo_A" ColumnName="Photo_A" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="GuardianRelationship" ColumnName="GuardianRelationship" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="ResidencyNumber" ColumnName="ResidencyNumber" />
+                <ScalarProperty Name="MotherID" ColumnName="MotherID" />
+                <ScalarProperty Name="FamilyID" ColumnName="FamilyID" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="GuardianID" ColumnName="GuardianID" />
+                <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="NationalNumber" ColumnName="NationalNumber" />
+                <ScalarProperty Name="StudentEnglishName" ColumnName="StudentEnglishName" />
+                <ScalarProperty Name="StudentArabicName" ColumnName="StudentArabicName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolBranches">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.SchoolBranch">
+              <MappingFragment StoreEntitySet="SchoolBranches">
+                <ScalarProperty Name="CurrentNumberofStudents" ColumnName="CurrentNumberofStudents" />
+                <ScalarProperty Name="MaxStudentsinClassroom" ColumnName="MaxStudentsinClassroom" />
+                <ScalarProperty Name="ClassroomArea" ColumnName="ClassroomArea" />
+                <ScalarProperty Name="MaxSchoolStudents" ColumnName="MaxSchoolStudents" />
+                <ScalarProperty Name="YardArea" ColumnName="YardArea" />
+                <ScalarProperty Name="SchoolCurrency" ColumnName="SchoolCurrency" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="SchoolContactNumber" ColumnName="SchoolContactNumber" />
+                <ScalarProperty Name="SchoolEnglishName" ColumnName="SchoolEnglishName" />
+                <ScalarProperty Name="SchoolArabicName" ColumnName="SchoolArabicName" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusInfoes">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.BusInfo">
+              <MappingFragment StoreEntitySet="BusInfo">
+                <ScalarProperty Name="PlateNumber" ColumnName="PlateNumber" />
+                <ScalarProperty Name="BusCurrentStatus" ColumnName="BusCurrentStatus" />
+                <ScalarProperty Name="SecondAttendantID" ColumnName="SecondAttendantID" />
+                <ScalarProperty Name="AttendantID" ColumnName="AttendantID" />
+                <ScalarProperty Name="PicnicAllowed" ColumnName="PicnicAllowed" />
+                <ScalarProperty Name="StandbyDay5" ColumnName="StandbyDay5" />
+                <ScalarProperty Name="StandbyDay4" ColumnName="StandbyDay4" />
+                <ScalarProperty Name="StandbyDay3" ColumnName="StandbyDay3" />
+                <ScalarProperty Name="StandbyDay2" ColumnName="StandbyDay2" />
+                <ScalarProperty Name="StandbyDay1" ColumnName="StandbyDay1" />
+                <ScalarProperty Name="ParkingArea" ColumnName="ParkingArea" />
+                <ScalarProperty Name="BusOwner" ColumnName="BusOwner" />
+                <ScalarProperty Name="RentValue" ColumnName="RentValue" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+                <ScalarProperty Name="Ownership" ColumnName="Ownership" />
+                <ScalarProperty Name="BusLicenseDate" ColumnName="BusLicenseDate" />
+                <ScalarProperty Name="NumberofSeats" ColumnName="NumberofSeats" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="BusNo" ColumnName="BusNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="DateReplied" ColumnName="DateReplied" />
+                <ScalarProperty Name="DateSeen" ColumnName="DateSeen" />
+                <ScalarProperty Name="DateDelegated" ColumnName="DateDelegated" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+                <ScalarProperty Name="SchoolYear" ColumnName="SchoolYear" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="NotificationText" ColumnName="NotificationText" />
+                <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+                <ScalarProperty Name="ImportanceLevel" ColumnName="ImportanceLevel" />
+                <ScalarProperty Name="DestinationType" ColumnName="DestinationType" />
+                <ScalarProperty Name="DesitinationID" ColumnName="DesitinationID" />
+                <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="DateRead" ColumnName="DateRead" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceRegistrars">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.DeviceRegistrar">
+              <MappingFragment StoreEntitySet="DeviceRegistrar">
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="OwnerType" ColumnName="OwnerType" />
+                <ScalarProperty Name="OwnerMobileNumber" ColumnName="OwnerMobileNumber" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="IsDeviceRegistrationActive" ColumnName="IsDeviceRegistrationActive" />
+                <ScalarProperty Name="DeviceRegistrationCode" ColumnName="DeviceRegistrationCode" />
+                <ScalarProperty Name="DeviceRegistratinId" ColumnName="DeviceRegistratinId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttendanceTypes">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.AttendanceType">
+              <MappingFragment StoreEntitySet="AttendanceType">
+                <ScalarProperty Name="AttedanceTypeEnglishText" ColumnName="AttedanceTypeEnglishText" />
+                <ScalarProperty Name="AttedanceTypeArabicText" ColumnName="AttedanceTypeArabicText" />
+                <ScalarProperty Name="AttendanceTypeID" ColumnName="AttendanceTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attendances">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.Attendance">
+              <MappingFragment StoreEntitySet="Attendance">
+                <ScalarProperty Name="ThirdSessionTimeStamp" ColumnName="ThirdSessionTimeStamp" />
+                <ScalarProperty Name="FourthSessionTimeStamp" ColumnName="FourthSessionTimeStamp" />
+                <ScalarProperty Name="SeventhSessionTimeStamp" ColumnName="SeventhSessionTimeStamp" />
+                <ScalarProperty Name="FifthSessionTimeStamp" ColumnName="FifthSessionTimeStamp" />
+                <ScalarProperty Name="SixthSessionTimeStamp" ColumnName="SixthSessionTimeStamp" />
+                <ScalarProperty Name="SecondSessionTimeStamp" ColumnName="SecondSessionTimeStamp" />
+                <ScalarProperty Name="FirstSessionTimeStamp" ColumnName="FirstSessionTimeStamp" />
+                <ScalarProperty Name="EighthSessionTimeStamp" ColumnName="EighthSessionTimeStamp" />
+                <ScalarProperty Name="EighthSession" ColumnName="EighthSession" />
+                <ScalarProperty Name="SeventhSession" ColumnName="SeventhSession" />
+                <ScalarProperty Name="SixthSession" ColumnName="SixthSession" />
+                <ScalarProperty Name="FifthSession" ColumnName="FifthSession" />
+                <ScalarProperty Name="FourthSession" ColumnName="FourthSession" />
+                <ScalarProperty Name="ThirdSession" ColumnName="ThirdSession" />
+                <ScalarProperty Name="SecondSession" ColumnName="SecondSession" />
+                <ScalarProperty Name="FirstSession" ColumnName="FirstSession" />
+                <ScalarProperty Name="AttendanceNote" ColumnName="AttendanceNote" />
+                <ScalarProperty Name="ParentMessage" ColumnName="ParentMessage" />
+                <ScalarProperty Name="ParentInformed" ColumnName="ParentInformed" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AbsenceReason" ColumnName="AbsenceReason" />
+                <ScalarProperty Name="AttendanceType" ColumnName="AttendanceType" />
+                <ScalarProperty Name="AttendanceDate" ColumnName="AttendanceDate" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="SchoolYear" ColumnName="SchoolYear" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="AttendanceItemID" ColumnName="AttendanceItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomPropertyTypes">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.CustomPropertyType">
+              <MappingFragment StoreEntitySet="CustomPropertyTypes">
+                <ScalarProperty Name="CustomPropertyTypeinEnglish" ColumnName="CustomPropertyTypeinEnglish" />
+                <ScalarProperty Name="CustomPropertyTypeinArabic" ColumnName="CustomPropertyTypeinArabic" />
+                <ScalarProperty Name="CustomPropertyTypeID" ColumnName="CustomPropertyTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentCustomProperties">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.DocumentCustomProperty">
+              <MappingFragment StoreEntitySet="DocumentCustomProperties">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="CustomPropertyID" ColumnName="CustomPropertyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.Document">
+              <MappingFragment StoreEntitySet="Documents">
+                <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
+                <ScalarProperty Name="DocumentOwnerType" ColumnName="DocumentOwnerType" />
+                <ScalarProperty Name="DocumentOwnerID" ColumnName="DocumentOwnerID" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="DocumentEnglishDescription" ColumnName="DocumentEnglishDescription" />
+                <ScalarProperty Name="DocumentArabicDescription" ColumnName="DocumentArabicDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentTypes">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.DocumentType">
+              <MappingFragment StoreEntitySet="DocumentTypes">
+                <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
+                <ScalarProperty Name="DocumentTypeEnglishDescription" ColumnName="DocumentTypeEnglishDescription" />
+                <ScalarProperty Name="DocumentTypeArabicDescription" ColumnName="DocumentTypeArabicDescription" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumrntCustomizedProperties">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.DocumrntCustomizedProperty">
+              <MappingFragment StoreEntitySet="DocumrntCustomizedProperties">
+                <ScalarProperty Name="LocalLookupID" ColumnName="LocalLookupID" />
+                <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
+                <ScalarProperty Name="CustomPropertyType" ColumnName="CustomPropertyType" />
+                <ScalarProperty Name="CustomPropertyRequired" ColumnName="CustomPropertyRequired" />
+                <ScalarProperty Name="CustomPropertyID" ColumnName="CustomPropertyID" />
+                <ScalarProperty Name="CustomPropertyFormat" ColumnName="CustomPropertyFormat" />
+                <ScalarProperty Name="CustomPropertyFieldSize" ColumnName="CustomPropertyFieldSize" />
+                <ScalarProperty Name="CustomPropertyEnglishDescription" ColumnName="CustomPropertyEnglishDescription" />
+                <ScalarProperty Name="CustomPropertyDefaultValue" ColumnName="CustomPropertyDefaultValue" />
+                <ScalarProperty Name="CustomPropertyCreationDate" ColumnName="CustomPropertyCreationDate" />
+                <ScalarProperty Name="CustomPropertyArabicDescription" ColumnName="CustomPropertyArabicDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SocialMediaRoles">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.SocialMediaRole">
+              <MappingFragment StoreEntitySet="SocialMediaRoles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SocialMediaUsers">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.SocialMediaUser">
+              <MappingFragment StoreEntitySet="SocialMediaUsers">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SocialMediaUserRoles">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.SocialMediaUserRole">
+              <MappingFragment StoreEntitySet="SocialMediaUserRoles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AbsenceReasons">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.AbsenceReason">
+              <MappingFragment StoreEntitySet="AbsenceReasons">
+                <ScalarProperty Name="AbsenceReasonID" ColumnName="AbsenceReasonID" />
+                <ScalarProperty Name="AbsenceReasonEnglishText" ColumnName="AbsenceReasonEnglishText" />
+                <ScalarProperty Name="AbsenceReasonArabicText" ColumnName="AbsenceReasonArabicText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentSchoolDetails">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.StudentSchoolDetail">
+              <MappingFragment StoreEntitySet="StudentSchoolDetails">
+                <ScalarProperty Name="GoingTourOrder" ColumnName="GoingTourOrder" />
+                <ScalarProperty Name="ComingTourOrder" ColumnName="ComingTourOrder" />
+                <ScalarProperty Name="PreviousSchool" ColumnName="PreviousSchool" />
+                <ScalarProperty Name="GoingBusTourID" ColumnName="GoingBusTourID" />
+                <ScalarProperty Name="ComingBusTourID" ColumnName="ComingBusTourID" />
+                <ScalarProperty Name="Results" ColumnName="Results" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="DateofAdmission" ColumnName="DateofAdmission" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemSettings">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.SystemSetting">
+              <MappingFragment StoreEntitySet="SystemSettings">
+                <ScalarProperty Name="LastStudentID" ColumnName="LastStudentID" />
+                <ScalarProperty Name="LastStaffID" ColumnName="LastStaffID" />
+                <ScalarProperty Name="LastDocumentID" ColumnName="LastDocumentID" />
+                <ScalarProperty Name="DocumentsPath" ColumnName="DocumentsPath" />
+                <ScalarProperty Name="CurrentAcademicYear" ColumnName="CurrentAcademicYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SmartSchoolsModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
