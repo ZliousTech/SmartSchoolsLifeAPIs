@@ -1,4 +1,5 @@
 ﻿using Google.Apis.Auth.OAuth2;
+using Logger.Service;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -9,10 +10,12 @@ namespace FireBase.Service.DataService
 {
     public class FireBaseService : IFireBaseService
     {
+        private readonly ILogger _logger;
         private readonly GoogleCredential _credential;
 
         public FireBaseService()
         {
+            _logger = new Logger.Service.Logger();
             _credential = GoogleCredential.FromJson(FireBase_Helper.Instance.GetPrivateKey())
                 .CreateScoped("https://www.googleapis.com/auth/firebase.messaging");
         }
@@ -53,12 +56,36 @@ namespace FireBase.Service.DataService
 
                 var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync("https://fcm.googleapis.com/v1/projects/busfirebaseproject-c4384/messages:send", content);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                var requestLoggingInfo = new StringBuilder();
+                requestLoggingInfo.AppendLine($"Status Code: {(int)response.StatusCode} ({response.ReasonPhrase})");
+                requestLoggingInfo.AppendLine("Request Data:");
+                requestLoggingInfo.AppendLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                requestLoggingInfo.AppendLine("Response Headers:");
+                foreach (var header in response.Headers)
+                {
+                    requestLoggingInfo.AppendLine($"{header.Key}: {string.Join(", ", header.Value)}");
+                }
+                requestLoggingInfo.AppendLine("Response Body:");
+                requestLoggingInfo.AppendLine(responseContent);
 
                 // Check for 404 Not Found or 400 Bad Request (invalid token)
                 if (!response.IsSuccessStatusCode)
                 {
+                    if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                    {
+                        _logger.Fatal(nameof(SendNotificationAsync), requestLoggingInfo.ToString());
+                    }
+                    else
+                    {
+                        _logger.Error(nameof(SendNotificationAsync), requestLoggingInfo.ToString());
+                    }
+
                     return; // Skip this invalid token and continue with the loop
                 }
+
+                _logger.Info(nameof(SendNotificationAsync), $"Success: {requestLoggingInfo}");
 
                 response.EnsureSuccessStatusCode();
             }

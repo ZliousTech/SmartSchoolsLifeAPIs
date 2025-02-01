@@ -1,4 +1,5 @@
 ﻿using FireBase.Service.DataService;
+using Logger.Service;
 using SmartSchoolLifeAPI.Core.DTOs;
 using SmartSchoolLifeAPI.Core.Models.Shared;
 using System;
@@ -14,11 +15,13 @@ namespace SmartSchoolLifeAPI.Core.Repos
 {
     public class PushNotificationHandler : IPushNotificationHandler
     {
-        private readonly IFireBaseService fireBaseService;
+        private readonly IFireBaseService _fireBaseService;
+        private readonly ILogger _logger;
 
         public PushNotificationHandler()
         {
-            fireBaseService = new FireBaseService();
+            _fireBaseService = new FireBaseService();
+            _logger = new Logger.Service.Logger();
         }
 
         public async Task SendPushNotification(string staffId, int schoolClassId, int sectionId, int subjectId,
@@ -30,7 +33,16 @@ namespace SmartSchoolLifeAPI.Core.Repos
                 string notificationText = NotificationBuilder(staffId, schoolClassId, sectionId, subjectId, type, date);
 
                 if (!guardians.Any())
-                    throw new Exception("No Patents found to send notification to them!");
+                {
+                    StringBuilder logInfoBuilder = new StringBuilder();
+                    logInfoBuilder.AppendLine("Warning: No Patents found to send notification to them!");
+                    logInfoBuilder.AppendLine($"Notification Type: {type}");
+                    logInfoBuilder.AppendLine($"Message: {notificationText}");
+
+                    _logger.Warning(nameof(SendPushNotification), logInfoBuilder.ToString());
+
+                    return;
+                }
                 if (notificationTypeId == -1)
                     throw new Exception("Not allowed Notification Type!");
                 if (notificationText.Equals("Fail Get data for notification!"))
@@ -362,13 +374,13 @@ namespace SmartSchoolLifeAPI.Core.Repos
         {
             foreach (var guardian in guardians)
             {
-                await fireBaseService.SendNotificationAsync(guardian.guardiantoken, type, notificationText);
+                await _fireBaseService.SendNotificationAsync(guardian.guardiantoken, type, notificationText);
             }
         }
 
         private async Task SendToParent(dynamic guardian, string type, string notificationText)
         {
-            await fireBaseService.SendNotificationAsync(guardian.guardiantoken, type, notificationText);
+            await _fireBaseService.SendNotificationAsync(guardian.guardiantoken, type, notificationText);
         }
 
         private int GetNotificaitonTypeId(string type)

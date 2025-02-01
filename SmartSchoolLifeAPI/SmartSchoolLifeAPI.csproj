@@ -625,6 +625,10 @@
       <Project>{16F80BFC-C8DA-47FF-B71A-379F9864D87C}</Project>
       <Name>FireBase.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logger\Logger.Service.csproj">
+      <Project>{D8F6AF0B-DF87-48FE-A573-2649766CD334}</Project>
+      <Name>Logger.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
