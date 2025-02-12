@@ -1,4 +1,5 @@
-﻿using FireBase.Service.DataService;
+﻿using FireBase.Service;
+using FireBase.Service.DataService;
 using Logger.Service;
 using SmartSchoolLifeAPI.Core.DTOs;
 using SmartSchoolLifeAPI.Core.Models.Shared;
@@ -25,7 +26,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
         }
 
         public async Task SendPushNotification(string staffId, int schoolClassId, int sectionId, int subjectId,
-            string type, IEnumerable<dynamic> guardians, string date = "")
+            string type, IEnumerable<dynamic> guardians, string date = "", DeviceType deviceType = DeviceType.Android)
         {
             try
             {
@@ -34,12 +35,15 @@ namespace SmartSchoolLifeAPI.Core.Repos
 
                 if (!guardians.Any())
                 {
+                    #region Warning For No Sending Push Notification.
+
                     StringBuilder logInfoBuilder = new StringBuilder();
                     logInfoBuilder.AppendLine("Warning: No Patents found to send notification to them!");
                     logInfoBuilder.AppendLine($"Notification Type: {type}");
                     logInfoBuilder.AppendLine($"Message: {notificationText}");
-
                     _logger.Warning(nameof(SendPushNotification), logInfoBuilder.ToString());
+
+                    #endregion
 
                     return;
                 }
@@ -50,7 +54,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
 
                 AddPushNotificationToDB(guardians, notificationTypeId, notificationText);
 
-                await SendToParents(guardians, type, notificationText);
+                await SendToParents(guardians, type, notificationText, string.Empty, deviceType);
 
             }
             catch (Exception ex)
@@ -59,7 +63,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
             }
         }
 
-        public async Task SendPushNotification(string staffId, string type, IEnumerable<AttendanceInsertDTO> students)
+        public async Task SendPushNotification(string staffId, string type, IEnumerable<AttendanceInsertDTO> students, DeviceType deviceType = DeviceType.Android)
         {
             try
             {
@@ -78,7 +82,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
                 {
                     notificationText = $"{guardian.studentEnglishName} \n is absent by {teacherInfo?.StaffEnglishName}";
                     AddPushNotificationToDB(guardian, notificationTypeId, notificationText);
-                    await SendToParent(guardian, type, notificationText);
+                    await SendToParent(guardian, type, notificationText, string.Empty, deviceType);
                 }
             }
             catch (Exception ex)
@@ -87,7 +91,8 @@ namespace SmartSchoolLifeAPI.Core.Repos
             }
         }
 
-        public async Task SendPushNotification(string studentId, IEnumerable<int> sessions, Dictionary<int, string> sessionProperties, string type, string date)
+        public async Task SendPushNotification(string studentId, IEnumerable<int> sessions, Dictionary<int, string> sessionProperties,
+            string type, string date, DeviceType deviceType = DeviceType.Android)
         {
             try
             {
@@ -121,7 +126,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
                 {
                     notificationText = $"{guardian.studentEnglishName} \nis absent in {sessionList} by you in \n{date}";
                     AddPushNotificationToDB(guardian, notificationTypeId, notificationText);
-                    await SendToParent(guardian, type, notificationText);
+                    await SendToParent(guardian, type, notificationText, string.Empty, deviceType);
                 }
             }
             catch (Exception ex)
@@ -370,17 +375,17 @@ namespace SmartSchoolLifeAPI.Core.Repos
             }
         }
 
-        private async Task SendToParents(IEnumerable<dynamic> guardians, string type, string notificationText)
+        private async Task SendToParents(IEnumerable<dynamic> guardians, string type, string notificationText, string title, DeviceType deviceType)
         {
             foreach (var guardian in guardians)
             {
-                await _fireBaseService.SendNotificationAsync(guardian.guardiantoken, type, notificationText);
+                await _fireBaseService.SendNotificationAsync(guardian.guardiantoken, type, notificationText, title, deviceType);
             }
         }
 
-        private async Task SendToParent(dynamic guardian, string type, string notificationText)
+        private async Task SendToParent(dynamic guardian, string type, string notificationText, string title, DeviceType deviceType)
         {
-            await _fireBaseService.SendNotificationAsync(guardian.guardiantoken, type, notificationText);
+            await _fireBaseService.SendNotificationAsync(guardian.guardiantoken, type, notificationText, title, deviceType);
         }
 
         private int GetNotificaitonTypeId(string type)

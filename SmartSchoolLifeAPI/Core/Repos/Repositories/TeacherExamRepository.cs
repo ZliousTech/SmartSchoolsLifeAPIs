@@ -1,4 +1,5 @@
-﻿using SmartSchoolLifeAPI.Core.Models;
+﻿using FireBase.Service;
+using SmartSchoolLifeAPI.Core.Models;
 using SmartSchoolLifeAPI.Core.Models.Extensions;
 using SmartSchoolLifeAPI.Core.Models.Shared;
 using System;
@@ -48,7 +49,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
             throw new NotImplementedException();
         }
 
-        public async Task<Exam> AddAsync(Exam entity)
+        public async Task<Exam> AddAsync(Exam entity, DeviceType deviceType)
         {
             int insertedExamId = 0;
 
@@ -84,7 +85,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
             // Send push Notification.
             var guardians = _pushNotificationHandler.GetParentsSection(entity.SectionID);
             await _pushNotificationHandler.SendPushNotification(entity.TeacherID, entity.SchoolClassID, entity.SectionID, entity.SubjectID,
-                "Exam", guardians, DateTime.ParseExact(entity.ExamDate, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd"));
+                "Exam", guardians, DateTime.ParseExact(entity.ExamDate, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd"), deviceType);
 
             return GetById(insertedExamId);
         }

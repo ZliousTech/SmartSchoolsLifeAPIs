@@ -1,4 +1,5 @@
-﻿using SmartSchoolLifeAPI.Core.Models.Extensions;
+﻿using FireBase.Service;
+using SmartSchoolLifeAPI.Core.Models.Extensions;
 using SmartSchoolLifeAPI.Core.Models.HomeWork;
 using SmartSchoolLifeAPI.Core.Models.Shared;
 using SmartSchoolLifeAPI.ViewModels;
@@ -52,7 +53,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
             throw new NotImplementedException();
         }
 
-        public async Task<HomeWorkModel> AddAsync(HomeWorkModel entity)
+        public async Task<HomeWorkModel> AddAsync(HomeWorkModel entity, DeviceType deviceType)
         {
             int insertedHomeworkId = 0;
 
@@ -91,7 +92,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
             // Send push Notification.
             var guardians = _pushNotificationHandler.GetParentsSection(entity.SectionID);
             await _pushNotificationHandler.SendPushNotification(entity.TeacherID, entity.SchoolClassID, entity.SectionID, entity.SubjectID,
-                "Homework", guardians);
+                "Homework", guardians, deviceType: deviceType);
 
             return GetById(insertedHomeworkId);
         }

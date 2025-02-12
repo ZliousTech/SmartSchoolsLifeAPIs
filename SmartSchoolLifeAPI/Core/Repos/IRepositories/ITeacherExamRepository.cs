@@ -1,4 +1,5 @@
-﻿using SmartSchoolLifeAPI.Core.Models;
+﻿using FireBase.Service;
+using SmartSchoolLifeAPI.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,6 +11,6 @@ namespace SmartSchoolLifeAPI.Core.Repos
             string schoolClassId, string sectionId, string subjectId, string examTypeId, string schoolYear, int pageNumber, int pageSize);
         void AddOrUpdateExamsDates(Dictionary<int, string> examsDates);
 
-        Task<Exam> AddAsync(Exam model);
+        Task<Exam> AddAsync(Exam model, DeviceType deviceType);
     }
 }

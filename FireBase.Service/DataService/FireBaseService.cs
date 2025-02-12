@@ -20,34 +20,15 @@ namespace FireBase.Service.DataService
                 .CreateScoped("https://www.googleapis.com/auth/firebase.messaging");
         }
 
-        public async Task SendNotificationAsync(string receiverToken, string type, string notificationText, string title = "")
+        public async Task SendNotificationAsync(string receiverToken, string type, string notificationText, string title, DeviceType deviceType)
         {
             var accessToken = await _credential.UnderlyingCredential.GetAccessTokenForRequestAsync();
 
-            var data = new
-            {
-                message = new
-                {
-                    token = receiverToken,
-                    data = new
-                    {
-                        title = $"{type} Notification",
-                        body = notificationText,
-                        type = string.IsNullOrWhiteSpace(title) ? $"{type} Notification" : title,
-                        sound = string.Empty // horn.mp3 (the Bus voice).
-                    },
-                    apns = new
-                    {
-                        payload = new
-                        {
-                            aps = new
-                            {
-                                sound = string.Empty // horn.mp3 (the Bus voice).
-                            }
-                        }
-                    }
-                }
-            };
+            title = $"{type} Notification";
+            type = string.IsNullOrWhiteSpace(title) ? $"{type} Notification" : title;
+
+            IPushNotificationJsonFactory pushNotificationJsonType = PushNotificationJsonFactory.GetPushNotificationJsonType(deviceType);
+            var data = PushNotificationJsonFactory.CreatePushNotificationJson(pushNotificationJsonType, receiverToken, type, notificationText, title, string.Empty);
 
             using (var client = new HttpClient())
             {
@@ -58,34 +39,34 @@ namespace FireBase.Service.DataService
                 var response = await client.PostAsync("https://fcm.googleapis.com/v1/projects/busfirebaseproject-c4384/messages:send", content);
                 string responseContent = await response.Content.ReadAsStringAsync();
 
-                var requestLoggingInfo = new StringBuilder();
-                requestLoggingInfo.AppendLine($"Status Code: {(int)response.StatusCode} ({response.ReasonPhrase})");
-                requestLoggingInfo.AppendLine("Request Data:");
-                requestLoggingInfo.AppendLine(JsonConvert.SerializeObject(data, Formatting.Indented));
-                requestLoggingInfo.AppendLine("Response Headers:");
+                var requestLoggerInfo = new StringBuilder();
+                requestLoggerInfo.AppendLine($"Status Code: {(int)response.StatusCode} ({response.ReasonPhrase})");
+                requestLoggerInfo.AppendLine("Request Data:");
+                requestLoggerInfo.AppendLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                requestLoggerInfo.AppendLine("Response Headers:");
                 foreach (var header in response.Headers)
                 {
-                    requestLoggingInfo.AppendLine($"{header.Key}: {string.Join(", ", header.Value)}");
+                    requestLoggerInfo.AppendLine($"{header.Key}: {string.Join(", ", header.Value)}");
                 }
-                requestLoggingInfo.AppendLine("Response Body:");
-                requestLoggingInfo.AppendLine(responseContent);
+                requestLoggerInfo.AppendLine("Response Body:");
+                requestLoggerInfo.AppendLine(responseContent);
 
                 // Check for 404 Not Found or 400 Bad Request (invalid token)
                 if (!response.IsSuccessStatusCode)
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                     {
-                        _logger.Fatal(nameof(SendNotificationAsync), requestLoggingInfo.ToString());
+                        _logger.Fatal(nameof(SendNotificationAsync), requestLoggerInfo.ToString());
                     }
                     else
                     {
-                        _logger.Error(nameof(SendNotificationAsync), requestLoggingInfo.ToString());
+                        _logger.Error(nameof(SendNotificationAsync), requestLoggerInfo.ToString());
                     }
 
-                    return; // Skip this invalid token and continue with the loop
+                    return; // Skip this invalid token and continue with other tokens.
                 }
 
-                _logger.Info(nameof(SendNotificationAsync), $"Success: {requestLoggingInfo}");
+                _logger.Info($"{this.GetType().Name}_{nameof(SendNotificationAsync)}", $"Success: {requestLoggerInfo}");
 
                 response.EnsureSuccessStatusCode();
             }

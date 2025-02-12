@@ -1,4 +1,5 @@
-﻿using SmartSchoolLifeAPI.Core.Models;
+﻿using FireBase.Service;
+using SmartSchoolLifeAPI.Core.Models;
 using SmartSchoolLifeAPI.Core.Models.Helpers;
 using SmartSchoolLifeAPI.Core.Repos;
 using System;
@@ -64,11 +65,11 @@ namespace SmartSchoolLifeAPI.Controllers.api
 
         [Route("CreateExam")]
         [HttpPost]
-        public async Task<IHttpActionResult> CreateExam(Exam model)
+        public async Task<IHttpActionResult> CreateExam(Exam model, short deviceType = 1)
         {
             try
             {
-                Exam addedexam = await _teacherExamRepository.AddAsync(model);
+                Exam addedexam = await _teacherExamRepository.AddAsync(model, (DeviceType)deviceType);
                 return Created($"TeacherExam/GetExam?examId={addedexam.ID}", Messages.Inserted(addedexam));
 
             }
