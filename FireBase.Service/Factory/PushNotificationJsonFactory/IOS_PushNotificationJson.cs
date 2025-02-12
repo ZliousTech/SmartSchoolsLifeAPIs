@@ -27,7 +27,7 @@
                         {
                             aps = new
                             {
-                                sound = sound // horn.mp3 (the Bus voice).
+                                sound = "default"
                             }
                         }
                     }
