@@ -1,0 +1,34 @@
+{
+	"info": {
+		"_postman_id": "481e52c6-a106-4136-ba20-8b7a75ddf32a",
+		"name": "SystemSettingsperSchool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26044109"
+	},
+	"item": [
+		{
+			"name": "GetTimeTableType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localUrl}}/SystemSettingsperSchool/GetTimeTableType?schoolID=1078",
+					"host": [
+						"{{localUrl}}"
+					],
+					"path": [
+						"SystemSettingsperSchool",
+						"GetTimeTableType"
+					],
+					"query": [
+						{
+							"key": "schoolID",
+							"value": "1078"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

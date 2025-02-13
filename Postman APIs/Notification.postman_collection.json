@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "098a3f0f-9a8f-4d41-8486-f1dd3c3dabd5",
+		"name": "Notification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26044109"
+	},
+	"item": [
+		{
+			"name": "AddDeviceRegCode",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"DeviceRegistrationCode\":\"klsfa58904590345tiojtgew758903ujf\",\r\n    \"OwnerID\":\"0\",\r\n    \"OwnerMobileNumber\":\"00000000000\",\r\n    \"OwnerType\":11\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:29628/api/Notification",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "29628",
+					"path": [
+						"api",
+						"Notification"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

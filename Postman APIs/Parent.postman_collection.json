@@ -1,0 +1,33 @@
+{
+	"info": {
+		"_postman_id": "ffcc7c64-dc01-4418-ab7a-4f3ae56959e0",
+		"name": "Parent",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26044109"
+	},
+	"item": [
+		{
+			"name": "GetParentStudents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{offlineUrl}}/Parent?GuardianID=2843",
+					"host": [
+						"{{offlineUrl}}"
+					],
+					"path": [
+						"Parent"
+					],
+					"query": [
+						{
+							"key": "GuardianID",
+							"value": "2843"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

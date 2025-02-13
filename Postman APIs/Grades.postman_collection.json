@@ -1,0 +1,34 @@
+{
+	"info": {
+		"_postman_id": "fe729d65-df5f-4391-a66b-deb5ab0aebcd",
+		"name": "Grades",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26044109"
+	},
+	"item": [
+		{
+			"name": "GetStudentGrades",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{onlineUrl}}/Grades/GetStudentGrades?studentID=S202310780002401",
+					"host": [
+						"{{onlineUrl}}"
+					],
+					"path": [
+						"Grades",
+						"GetStudentGrades"
+					],
+					"query": [
+						{
+							"key": "studentID",
+							"value": "S202310780002401"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

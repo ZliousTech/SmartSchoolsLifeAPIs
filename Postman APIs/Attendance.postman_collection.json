@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "d39c0241-443f-430f-8c5d-b4c255345983",
+		"name": "Attendance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26044109"
+	},
+	"item": [
+		{
+			"name": "GetStudentAttendance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{onlineUrl}}/StudentAttendance/GetStudentAttendance?studentID=S202310780002401&date=18/01/2024",
+					"host": [
+						"{{onlineUrl}}"
+					],
+					"path": [
+						"StudentAttendance",
+						"GetStudentAttendance"
+					],
+					"query": [
+						{
+							"key": "studentID",
+							"value": "S202310780002401"
+						},
+						{
+							"key": "date",
+							"value": "18/01/2024",
+							"description": "Format as dd/MM/yyyy"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

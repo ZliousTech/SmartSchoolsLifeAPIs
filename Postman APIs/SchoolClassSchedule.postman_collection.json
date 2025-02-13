@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "b025ea7b-d781-4452-868a-dab3b5dda89d",
+		"name": "SchoolClassSchedule",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26044109"
+	},
+	"item": [
+		{
+			"name": "GetSchoolClassSchedule",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localUrl}}/SchoolClassSchedule/GetSchoolClassSchedule?schoolID=1078&schoolClassID=437&sectionID=329&timeTableType=-1",
+					"host": [
+						"{{localUrl}}"
+					],
+					"path": [
+						"SchoolClassSchedule",
+						"GetSchoolClassSchedule"
+					],
+					"query": [
+						{
+							"key": "schoolID",
+							"value": "1078"
+						},
+						{
+							"key": "schoolClassID",
+							"value": "437"
+						},
+						{
+							"key": "sectionID",
+							"value": "329"
+						},
+						{
+							"key": "timeTableType",
+							"value": "-1",
+							"description": "0 in case its an Automatic, and -1 if its a Manual\nyou can get this information from GetTimeTableType function inside SystemSettingsperSchool Controller.\nHere is the endPoint:\n{{onlineUrl}}/SystemSettingsperSchool/GetTimeTableType?schoolID=IntegerValue      => like 1078 for Cairo School"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

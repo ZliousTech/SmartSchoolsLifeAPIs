@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "be69c052-48d0-4b45-b0ee-25a93432c16e",
+		"name": "Sections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26044109"
+	},
+	"item": [
+		{
+			"name": "GetSchoolClassSections",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localUrl}}/Sections/GetSchoolClassSections?schoolID=1078&schoolClassID=437",
+					"host": [
+						"{{localUrl}}"
+					],
+					"path": [
+						"Sections",
+						"GetSchoolClassSections"
+					],
+					"query": [
+						{
+							"key": "schoolID",
+							"value": "1078"
+						},
+						{
+							"key": "schoolClassID",
+							"value": "437"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

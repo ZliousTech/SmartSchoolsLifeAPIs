@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "8f0f0796-6fa0-4bef-809b-6701ff36e6aa",
+		"name": "Teacher",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32943325"
+	},
+	"item": [
+		{
+			"name": "GetTeacherClassSchedule",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LocalUrl}}/TeacherClassSchedule/GetTeacherClassSchedule?schoolID=1078&staffID=202310780000428&timeTableType=-1",
+					"host": [
+						"{{LocalUrl}}"
+					],
+					"path": [
+						"TeacherClassSchedule",
+						"GetTeacherClassSchedule"
+					],
+					"query": [
+						{
+							"key": "schoolID",
+							"value": "1078"
+						},
+						{
+							"key": "staffID",
+							"value": "202310780000428"
+						},
+						{
+							"key": "timeTableType",
+							"value": "-1"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

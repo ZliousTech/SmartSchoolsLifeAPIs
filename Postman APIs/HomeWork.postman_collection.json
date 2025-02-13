@@ -1,0 +1,34 @@
+{
+	"info": {
+		"_postman_id": "4f58bf89-e36f-4bbd-a911-ba635478df37",
+		"name": "HomeWork",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26044109"
+	},
+	"item": [
+		{
+			"name": "GetStudentHomeWorks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{onlineUrl}}/HomeWork/GetStudentHomeWorks?sectionID=329",
+					"host": [
+						"{{onlineUrl}}"
+					],
+					"path": [
+						"HomeWork",
+						"GetStudentHomeWorks"
+					],
+					"query": [
+						{
+							"key": "sectionID",
+							"value": "329"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

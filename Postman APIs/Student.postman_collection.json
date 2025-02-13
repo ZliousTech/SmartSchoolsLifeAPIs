@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "db5ca60c-3a9c-4d73-a7df-67a2b42236ad",
+		"name": "Student",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26044109"
+	},
+	"item": [
+		{
+			"name": "StudentMedicalHistory",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{onlineUrl}}/Student/GetStudentMedicalReport?studentID=S202410780002813",
+					"host": [
+						"{{onlineUrl}}"
+					],
+					"path": [
+						"Student",
+						"GetStudentMedicalReport"
+					],
+					"query": [
+						{
+							"key": "studentID",
+							"value": "S202410780002813"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateStudentMedicalRecord",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{onlineUrl}}/Student/UpdateStudentMedicalReport?studentID=S202310780002754&Mumps=false&Chickenpox=false&rubella=false&Rheumaticfever=false&Diabetes=false&Heartdiseases=false&Pissingoff=false&Jointbonediseases=false&sprayer=false&Hearingimpairment=false&Visualimpairment=false&Speechimpairment=false&Bladderdiseases=false&Epilepsy=false&Hepatitis=false&Shakika=false&Fainting=false&Kidneydisease=false&Surgery=false&Urinarysystemdiseases=false",
+					"host": [
+						"{{onlineUrl}}"
+					],
+					"path": [
+						"Student",
+						"UpdateStudentMedicalReport"
+					],
+					"query": [
+						{
+							"key": "studentID",
+							"value": "S202310780002754"
+						},
+						{
+							"key": "Mumps",
+							"value": "false"
+						},
+						{
+							"key": "Chickenpox",
+							"value": "false"
+						},
+						{
+							"key": "rubella",
+							"value": "false"
+						},
+						{
+							"key": "Rheumaticfever",
+							"value": "false"
+						},
+						{
+							"key": "Diabetes",
+							"value": "false"
+						},
+						{
+							"key": "Heartdiseases",
+							"value": "false"
+						},
+						{
+							"key": "Pissingoff",
+							"value": "false"
+						},
+						{
+							"key": "Jointbonediseases",
+							"value": "false"
+						},
+						{
+							"key": "sprayer",
+							"value": "false"
+						},
+						{
+							"key": "Hearingimpairment",
+							"value": "false"
+						},
+						{
+							"key": "Visualimpairment",
+							"value": "false"
+						},
+						{
+							"key": "Speechimpairment",
+							"value": "false"
+						},
+						{
+							"key": "Bladderdiseases",
+							"value": "false"
+						},
+						{
+							"key": "Epilepsy",
+							"value": "false"
+						},
+						{
+							"key": "Hepatitis",
+							"value": "false"
+						},
+						{
+							"key": "Shakika",
+							"value": "false"
+						},
+						{
+							"key": "Fainting",
+							"value": "false"
+						},
+						{
+							"key": "Kidneydisease",
+							"value": "false"
+						},
+						{
+							"key": "Surgery",
+							"value": "false"
+						},
+						{
+							"key": "Urinarysystemdiseases",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

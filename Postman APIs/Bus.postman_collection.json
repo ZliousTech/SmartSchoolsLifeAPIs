@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "15e5a21f-61cf-4e54-9e75-e3d020335f9b",
+		"name": "Bus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26044109"
+	},
+	"item": [
+		{
+			"name": "Guardian Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"UserName\":\"29906250101412\",\r\n    \"Password\":\"dcwill\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://zlioustech.com:84/api/bus",
+					"protocol": "http",
+					"host": [
+						"zlioustech",
+						"com"
+					],
+					"port": "84",
+					"path": [
+						"api",
+						"bus"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
