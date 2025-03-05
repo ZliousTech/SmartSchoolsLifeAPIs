@@ -66,8 +66,6 @@ namespace FireBase.Service.DataService
                     return; // Skip this invalid token and continue with other tokens.
                 }
 
-                _logger.Info($"{this.GetType().Name}_{nameof(SendNotificationAsync)}", $"Success: {requestLoggerInfo}");
-
                 response.EnsureSuccessStatusCode();
             }
         }

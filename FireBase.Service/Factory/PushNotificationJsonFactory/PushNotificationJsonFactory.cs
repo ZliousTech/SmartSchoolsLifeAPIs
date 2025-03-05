@@ -18,6 +18,8 @@ namespace FireBase.Service
                     return new Android_PushNotificationJson();
                 case DeviceType.IOS:
                     return new IOS_PushNotificationJson();
+                case DeviceType.Both:
+                    return new Shared_PushNotificationJson();
                 default:
                     throw new Exception("UnSupported Device Type!");
             }

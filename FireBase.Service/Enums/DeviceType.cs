@@ -3,6 +3,7 @@
     public enum DeviceType
     {
         Android = 1,
-        IOS = 2
+        IOS = 2,
+        Both = 3
     }
 }

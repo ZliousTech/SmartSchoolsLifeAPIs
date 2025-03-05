@@ -56,8 +56,9 @@
   <ItemGroup>
     <Compile Include="DataService\FireBaseService.cs" />
     <Compile Include="Enums\DeviceType.cs" />
-    <Compile Include="Factory\PushNotificationJsonFactory\Android_PushNotificationJson.cs" />
-    <Compile Include="Factory\PushNotificationJsonFactory\IOS_PushNotificationJson.cs" />
+    <Compile Include="Factory\PushNotificationJsonFactory\DevicesTypes\Android_PushNotificationJson.cs" />
+    <Compile Include="Factory\PushNotificationJsonFactory\DevicesTypes\IOS_PushNotificationJson.cs" />
+    <Compile Include="Factory\PushNotificationJsonFactory\DevicesTypes\Shared_PushNotificationJson.cs" />
     <Compile Include="Factory\PushNotificationJsonFactory\IPushNotificationJsonFactory.cs" />
     <Compile Include="Factory\PushNotificationJsonFactory\PushNotificationJsonFactory.cs" />
     <Compile Include="Helpers\FireBase_Helper.cs" />
