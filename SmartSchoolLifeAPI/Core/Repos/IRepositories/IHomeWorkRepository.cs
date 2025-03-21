@@ -1,4 +1,4 @@
-﻿using FireBase.Service;
+﻿using SmartSchool.FireBase.Service;
 using SmartSchoolLifeAPI.Core.Models.HomeWork;
 using SmartSchoolLifeAPI.ViewModels;
 using System.Collections.Generic;

@@ -7,9 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchoolLifeAPI", "Smart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{A15F2215-BDA2-44F8-8876-673991C0FE28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireBase.Service", "FireBase.Service\FireBase.Service.csproj", "{16F80BFC-C8DA-47FF-B71A-379F9864D87C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Revamp.SmartSchool.Core", "Revamp.SmartSchool.Core", "{9201A4C3-4E04-4C3C-A1AB-8D36530C4B5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger.Service", "Logger\Logger.Service.csproj", "{D8F6AF0B-DF87-48FE-A573-2649766CD334}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchool.FireBase.Service", "..\SmartSchoolsWeb\SmartSchool.FireBase.Service\SmartSchool.FireBase.Service.csproj", "{75AEB1B7-2A42-4866-94E7-54924060B31D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchool.Logger.Service", "..\SmartSchoolsWeb\SmartSchool.Logger.Service\SmartSchool.Logger.Service.csproj", "{70FC50B4-53A1-4DD9-8744-C0E25BE0A810}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,17 +27,21 @@ Global
 		{A15F2215-BDA2-44F8-8876-673991C0FE28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A15F2215-BDA2-44F8-8876-673991C0FE28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A15F2215-BDA2-44F8-8876-673991C0FE28}.Release|Any CPU.Build.0 = Release|Any CPU
-		{16F80BFC-C8DA-47FF-B71A-379F9864D87C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16F80BFC-C8DA-47FF-B71A-379F9864D87C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16F80BFC-C8DA-47FF-B71A-379F9864D87C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16F80BFC-C8DA-47FF-B71A-379F9864D87C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8F6AF0B-DF87-48FE-A573-2649766CD334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8F6AF0B-DF87-48FE-A573-2649766CD334}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8F6AF0B-DF87-48FE-A573-2649766CD334}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8F6AF0B-DF87-48FE-A573-2649766CD334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75AEB1B7-2A42-4866-94E7-54924060B31D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75AEB1B7-2A42-4866-94E7-54924060B31D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75AEB1B7-2A42-4866-94E7-54924060B31D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75AEB1B7-2A42-4866-94E7-54924060B31D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70FC50B4-53A1-4DD9-8744-C0E25BE0A810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70FC50B4-53A1-4DD9-8744-C0E25BE0A810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70FC50B4-53A1-4DD9-8744-C0E25BE0A810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70FC50B4-53A1-4DD9-8744-C0E25BE0A810}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{75AEB1B7-2A42-4866-94E7-54924060B31D} = {9201A4C3-4E04-4C3C-A1AB-8D36530C4B5D}
+		{70FC50B4-53A1-4DD9-8744-C0E25BE0A810} = {9201A4C3-4E04-4C3C-A1AB-8D36530C4B5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06A049FC-66BF-4989-A30A-46ADFD81022B}

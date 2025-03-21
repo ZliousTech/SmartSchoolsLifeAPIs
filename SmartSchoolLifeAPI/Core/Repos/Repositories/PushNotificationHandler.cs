@@ -1,6 +1,6 @@
-﻿using FireBase.Service;
-using FireBase.Service.DataService;
-using Logger.Service;
+﻿using SmartSchool.FireBase.Service;
+using SmartSchool.FireBase.Service.DataService;
+using SmartSchool.Logger.Service;
 using SmartSchoolLifeAPI.Core.DTOs;
 using SmartSchoolLifeAPI.Core.Models.Shared;
 using System;
@@ -17,12 +17,12 @@ namespace SmartSchoolLifeAPI.Core.Repos
     public class PushNotificationHandler : IPushNotificationHandler
     {
         private readonly IFireBaseService _fireBaseService;
-        private readonly ILogger _logger;
+        private readonly ILoggerService _loggerService;
 
         public PushNotificationHandler()
         {
             _fireBaseService = new FireBaseService();
-            _logger = new Logger.Service.Logger();
+            _loggerService = new LoggerService();
         }
 
         public async Task SendPushNotification(string staffId, int schoolClassId, int sectionId, int subjectId,
@@ -41,7 +41,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
                     logInfoBuilder.AppendLine("Warning: No Patents found to send notification to them!");
                     logInfoBuilder.AppendLine($"Notification Type: {type}");
                     logInfoBuilder.AppendLine($"Message: {notificationText}");
-                    _logger.Warning(nameof(SendPushNotification), logInfoBuilder.ToString());
+                    _loggerService.Warning(nameof(SendPushNotification), logInfoBuilder.ToString());
 
                     #endregion
 

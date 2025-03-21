@@ -1,5 +1,5 @@
-﻿using FireBase.Service;
-using FireBase.Service.DataService;
+﻿using SmartSchool.FireBase.Service;
+using SmartSchool.FireBase.Service.DataService;
 using SmartSchoolLifeAPI.Core.Models.Extensions;
 using SmartSchoolLifeAPI.Core.Models.Shared;
 using System;
