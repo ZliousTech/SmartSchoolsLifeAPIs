@@ -35,7 +35,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
             btn.RoadSpeed = "";
             btn.TripStatus = "";*/
 
-            //db.BusTrackNavigations.Add(btn);
+            //_db.BusTrackNavigations.Add(btn);
             /* Check to prevent the duplicated records */
             ////DataTable LocationInfo = GetDataTble("SELECT CNT = COUNT(*) " +
             ////                                     "FROM TRACK_" + SchoolID + " " +
@@ -90,8 +90,8 @@ namespace SmartSchoolLifeAPI.Controllers.api
             var maxId = 0;
             //try
             //{
-                //maxId = (from b in db.BusTrackNavigations where b.SchoolID == SchoolID && b.BusNumber == BusNumber && b.MoveDate == MoveDate select b.TripNumPerDay).Max();
-                var obj = db.Database.SqlQuery<TripNumberPerDayMV>("select max(TripNumPerDay) from track_" + SchoolID + " where SchoolID=" + SchoolID + " and BusNumber='" + BusNumber + "' and MoveDate='" + MoveDate + "'").ToList();
+                //maxId = (from b in _db.BusTrackNavigations where b.SchoolID == SchoolID && b.BusNumber == BusNumber && b.MoveDate == MoveDate select b.TripNumPerDay).Max();
+                var obj = _db.Database.SqlQuery<TripNumberPerDayMV>("select max(TripNumPerDay) from track_" + SchoolID + " where SchoolID=" + SchoolID + " and BusNumber='" + BusNumber + "' and MoveDate='" + MoveDate + "'").ToList();
                 maxId = obj[0].MaxID; 
                 
             }

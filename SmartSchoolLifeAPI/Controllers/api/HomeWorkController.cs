@@ -1,5 +1,4 @@
-﻿using SmartSchool.FireBase.Service;
-using SmartSchoolLifeAPI.Core.Models.Helpers;
+﻿using SmartSchoolLifeAPI.Core.Models.Helpers;
 using SmartSchoolLifeAPI.Core.Models.HomeWork;
 using SmartSchoolLifeAPI.Core.Repos;
 using SmartSchoolLifeAPI.ViewModels;
@@ -43,13 +42,13 @@ namespace SmartSchoolLifeAPI.Controllers.api
 
         [Route("CreateHomeWork")]
         [HttpPost]
-        public async Task<IHttpActionResult> CreateHomeWork(HomeWorkModel model, short deviceType = 1)
+        public async Task<IHttpActionResult> CreateHomeWork(HomeWorkModel model)
         {
             try
             {
                 if (!string.IsNullOrEmpty(model.HomeWorkAttachment) && !string.IsNullOrEmpty(model.Ext))
                 {
-                    HomeWorkModel addedHomework = await _homeworkRepository.AddAsync(model, (DeviceType)deviceType);
+                    HomeWorkModel addedHomework = await _homeworkRepository.AddAsync(model);
                     return Created($"HomeWork/GetHomeWork?homeworkId={addedHomework.HomeWorkID}", Messages.Inserted(addedHomework));
                 }
 

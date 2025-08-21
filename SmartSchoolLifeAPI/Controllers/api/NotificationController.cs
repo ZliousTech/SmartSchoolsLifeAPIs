@@ -13,13 +13,13 @@ namespace SmartSchoolLifeAPI.Controllers.api
 {
     public class NotificationController : ApiController
     {
-        SmartSchoolsEntities2 db;
-        private readonly IFireBaseService fireBaseService;
+        SmartSchoolsEntities2 _db;
+        private readonly IFireBaseService _fireBaseService;
 
         public NotificationController()
         {
-            db = new SmartSchoolsEntities2();
-            fireBaseService = new FireBaseService();
+            _db = new SmartSchoolsEntities2();
+            _fireBaseService = new FireBaseService();
         }
 
         [HttpPost]
@@ -27,40 +27,47 @@ namespace SmartSchoolLifeAPI.Controllers.api
         {
             notif.DateSent = DateTime.Now;
             notif.Status = 2;
-            db.Notifications.Add(notif);
-            db.SaveChanges();
+            _db.Notifications.Add(notif);
+            _db.SaveChanges();
         }
 
         [HttpGet]
-        public void UpdateDeviceRegCode(string DeviceRegistrationCode, string OwnerID)
+        public void UpdateDeviceRegCode(string deviceRegistrationCode, short deviceType, string ownerId)
         {
-            db.Database.ExecuteSqlCommand("update DeviceRegistrar set DeviceRegistrationCode={0} where OwnerID={1}", DeviceRegistrationCode, OwnerID);
-            db.SaveChanges();
+            _db.Database.ExecuteSqlCommand("UPDATE DeviceRegistrar SET deviceRegistrationCode = {0}, LastLoggedDeviceType = {1} WHERE ownerID = {2}",
+                                            deviceRegistrationCode, deviceType, ownerId);
+            _db.SaveChanges();
         }
 
         [HttpGet]
-        public void AddDeviceRegCode(string OwnerID,
-            string OwnerMobileNumber, int OwnerType, string DeviceRegistrationCode = null)
+        public void AddDeviceRegCode(string ownerID,
+            string ownerMobileNumber, int ownerType, short deviceType, string deviceRegistrationCode = null)
         {
-            var isRegisterd = db.DeviceRegistrars.FirstOrDefault(d => d.OwnerID == OwnerID);
+            string commandToExecute = string.Empty;
+            var isRegisterd = _db.DeviceRegistrars.FirstOrDefault(d => d.OwnerID == ownerID);
+
             if (isRegisterd == null)
             {
-                db.Database.ExecuteSqlCommand("INSERT INTO DeviceRegistrar " +
-                    "(DeviceRegistrationCode, IsDeviceRegistrationActive, OwnerID, OwnerMobileNumber, OwnerType, RegistrationDate) " + "VALUES ({0},{1},{2},{3},{4},{5})",
-                    DeviceRegistrationCode, -1, OwnerID, OwnerMobileNumber, OwnerType, DateTime.Now);
-                db.SaveChanges();
+                commandToExecute = $"INSERT INTO DeviceRegistrar " +
+                                   $"(deviceRegistrationCode, IsDeviceRegistrationActive, ownerID, ownerMobileNumber, ownerType, RegistrationDate, LastLoggedDeviceType) " +
+                                   $"VALUES ({deviceRegistrationCode}, {-1}, {ownerID}, {ownerMobileNumber}, {ownerType}, {DateTime.Now}, {deviceType})";
+
             }
             else
             {
-                db.Database.ExecuteSqlCommand("update DeviceRegistrar set DeviceRegistrationCode={0}, RegistrationDate={1} where OwnerID={2}", DeviceRegistrationCode, DateTime.Now, OwnerID);
-                db.SaveChanges();
+                commandToExecute = $"UPDATE DeviceRegistrar SET " +
+                                   $"DeviceRegistrationCode = {deviceRegistrationCode}, RegistrationDate = {DateTime.Now}, LastLoggedDeviceType = {deviceType} " +
+                                   $"WHERE OwnerID = {ownerID}";
             }
+
+            _db.Database.ExecuteSqlCommand(commandToExecute);
+            _db.SaveChanges();
         }
 
         [HttpGet]
         public DeviceRegistrar GetDevRegIdByAttendantId(string OwnerID)
         {
-            return db.DeviceRegistrars.SingleOrDefault(x => x.OwnerID == OwnerID);
+            return _db.DeviceRegistrars.SingleOrDefault(x => x.OwnerID == OwnerID);
         }
 
         //[HttpGet]
@@ -88,15 +95,15 @@ namespace SmartSchoolLifeAPI.Controllers.api
         //}
 
         [HttpGet]
-        public async Task SendFCM(string receiverToken, string title, string message, string type = "Alert", short deviceType = 1)
+        public async Task SendFCM(string receiverToken, string title, string message, string type = "Alert")
         {
-            await fireBaseService.SendNotificationAsync(receiverToken, type, message, title, (DeviceType)deviceType);
+            await _fireBaseService.SendNotificationAsync(receiverToken, type, message, title);
         }
 
         //[HttpGet]
         //public IEnumerable<Notification> GetNotificationsByReceiverID(string DesitinationID, int DestinationType)
         //{
-        //    return db.Notifications.Where(x => x.DesitinationID == DesitinationID && x.DestinationType == DestinationType).OrderByDescending(x => x.NotificationID).ToList();
+        //    return _db.Notifications.Where(x => x.DesitinationID == DesitinationID && x.DestinationType == DestinationType).OrderByDescending(x => x.NotificationID).ToList();
         //}
 
         [HttpGet]
@@ -127,9 +134,9 @@ namespace SmartSchoolLifeAPI.Controllers.api
         [HttpGet]
         public Notification GetNotificationByID(int NotificationID)
         {
-            db.Database.ExecuteSqlCommand("update Notifications set Status={0},DateSeen={1} where NotificationID={2}", 4, DateTime.Now, NotificationID);
-            db.SaveChanges();
-            return db.Notifications.SingleOrDefault(x => x.NotificationID == NotificationID);
+            _db.Database.ExecuteSqlCommand("update Notifications set Status={0},DateSeen={1} where NotificationID={2}", 4, DateTime.Now, NotificationID);
+            _db.SaveChanges();
+            return _db.Notifications.SingleOrDefault(x => x.NotificationID == NotificationID);
         }
     }
 }

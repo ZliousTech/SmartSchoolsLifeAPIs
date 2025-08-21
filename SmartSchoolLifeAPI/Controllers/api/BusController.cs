@@ -57,10 +57,10 @@ namespace SmartSchoolLifeAPI.Controllers.api
                 }
             }
 
-            //var q = (from s in db.Students
-            //         join b in db.ScheduledBusTrips
+            //var q = (from s in _db.Students
+            //         join b in _db.ScheduledBusTrips
             //         on s.StudentID equals b.PassengerID
-            //         join d in db.DeviceRegistrars
+            //         join d in _db.DeviceRegistrars
             //         on s.GuardianID.ToString() equals d.OwnerID into deviceRegistrars
             //         from dr in deviceRegistrars.DefaultIfEmpty()
             //         where b.SchoolID == SchoolID && b.BusNumber == BusNumber
@@ -82,9 +82,9 @@ namespace SmartSchoolLifeAPI.Controllers.api
 
 
             //-- Orginal
-            //var q = (from s in db.Students
-            //        join b in db.ScheduledBusTrips
-            //        on s.StudentID equals b.PassengerID join d in db.DeviceRegistrars 
+            //var q = (from s in _db.Students
+            //        join b in _db.ScheduledBusTrips
+            //        on s.StudentID equals b.PassengerID join d in _db.DeviceRegistrars 
             //        on s.GuardianID.ToString() equals d.OwnerID 
             //        where b.SchoolID == SchoolID && b.SchoolYear == SchoolYear && b.BusNumber == BusNumber
             //        && b.TripDate == TripDate && b.TripTime == TripTime
@@ -140,7 +140,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
 
         //public IEnumerable<BusStudentMV> GetTimes(int SchoolID, string SchoolYear, string BusNumber, string TripDate)
         //{
-        //    return db.ScheduledBusTrips.Where(x => x.SchoolID == SchoolID && x.SchoolYear == SchoolYear
+        //    return _db.ScheduledBusTrips.Where(x => x.SchoolID == SchoolID && x.SchoolYear == SchoolYear
         //    && x.BusNumber == BusNumber && x.TripDate == TripDate)
         //         .Select(x => new BusStudentMV
         //         {
@@ -205,7 +205,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
                      SchoolYear = x.SchoolYear
                  }).Distinct().ToList();
 
-            //return db.ScheduledBusTrips.Where(x => x.TripDate == TripDate && x.AttendantID == AttendantID)
+            //return _db.ScheduledBusTrips.Where(x => x.TripDate == TripDate && x.AttendantID == AttendantID)
             //     .Select(x => new BusStudentMV
             //     {
             //         TripTime = x.TripTime,
@@ -282,8 +282,8 @@ namespace SmartSchoolLifeAPI.Controllers.api
                 }
             }
 
-            //var q = (from b in db.ScheduledBusTrips
-            //         join s in db.Students
+            //var q = (from b in _db.ScheduledBusTrips
+            //         join s in _db.Students
             //on b.PassengerID equals s.StudentID
             //         where b.TripTime == TripTime && b.AttendantID == AttendantID
             //         select new BusStudentMV
@@ -304,8 +304,8 @@ namespace SmartSchoolLifeAPI.Controllers.api
         [HttpGet]
         public void UpdateLoc(double longitude, double latitude, string studentid)
         {
-            //db.Database.ExecuteSqlCommand("update StudentAdresses set longitude={0},latitude={1} where AddressID = (select AddressID from Student where StudentID={2})", longitude, latitude, studentid);
-            //db.SaveChanges();
+            //_db.Database.ExecuteSqlCommand("update StudentAdresses set longitude={0},latitude={1} where AddressID = (select AddressID from Student where StudentID={2})", longitude, latitude, studentid);
+            //_db.SaveChanges();
             string query = "";
 
             string conStr = ConfigurationManager.ConnectionStrings["SCHOOLCONSTR"].ConnectionString;
@@ -471,7 +471,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
         {
             string Password = PasswordEncDec.Encrypt(usr.Password);
 
-            //    var user = db.WebUsers.SingleOrDefault(s => s.UserName == usr.UserName && s.Password == Password);
+            //    var user = _db.WebUsers.SingleOrDefault(s => s.UserName == usr.UserName && s.Password == Password);
             //    if (user == null)
             //        return null;
             //    else

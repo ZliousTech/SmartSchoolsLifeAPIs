@@ -44,7 +44,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
         [HttpGet]
         public IEnumerable<ParentStudentDTO> GetParentStudents(int GuardianID)
         {
-            //return from s in db.Students
+            //return from s in _db.Students
             //       where s.GuardianID == GuardianID
             //       select new BusStudentMV {
             //           PassengerID = s.StudentID,
