@@ -617,6 +617,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SmartSchoolsWeb\SmartSchool.Core.DataService\SmartSchool.Core.DataService.csproj">
+      <Project>{53bc3de2-f834-4f9b-a699-1e127683f13d}</Project>
+      <Name>SmartSchool.Core.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SmartSchoolsWeb\SmartSchool.Core.IDataService\SmartSchool.Core.IDataService.csproj">
+      <Project>{73ae4e3c-5398-43c9-b23e-ea7082968cfc}</Project>
+      <Name>SmartSchool.Core.IDataService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SmartSchoolsWeb\SmartSchool.FireBase.Service\SmartSchool.FireBase.Service.csproj">
       <Project>{75aeb1b7-2a42-4866-94e7-54924060b31d}</Project>
       <Name>SmartSchool.FireBase.Service</Name>

@@ -1,4 +1,6 @@
-﻿using SmartSchool.FireBase.Service;
+﻿using SmartSchool.Core.DataService;
+using SmartSchool.Core.IDataService;
+using SmartSchool.FireBase.Service;
 using SmartSchool.FireBase.Service.DataService;
 using SmartSchoolLifeAPI.Core.Models.Extensions;
 using SmartSchoolLifeAPI.Core.Models.Shared;
@@ -15,11 +17,13 @@ namespace SmartSchoolLifeAPI.Controllers.api
     {
         SmartSchoolsEntities2 _db;
         private readonly IFireBaseService _fireBaseService;
+        private readonly ISmartSchoolDataServiceFactory _smartSchoolDataServiceFactory;
 
         public NotificationController()
         {
             _db = new SmartSchoolsEntities2();
             _fireBaseService = new FireBaseService();
+            _smartSchoolDataServiceFactory = new SmartSchoolDataServiceFactory();
         }
 
         [HttpPost]
@@ -40,29 +44,30 @@ namespace SmartSchoolLifeAPI.Controllers.api
         }
 
         [HttpGet]
-        public void AddDeviceRegCode(string ownerID,
-            string ownerMobileNumber, int ownerType, short deviceType, string deviceRegistrationCode = null)
+        public async Task AddDeviceRegCode(string ownerID, string ownerMobileNumber, int ownerType, short deviceType, string deviceRegistrationCode = null)
         {
-            string commandToExecute = string.Empty;
-            var isRegisterd = _db.DeviceRegistrars.FirstOrDefault(d => d.OwnerID == ownerID);
-
-            if (isRegisterd == null)
+            var isTokenRegistredBefor = (await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.Where(d => d.OwnerId == ownerID)).FirstOrDefault();
+            var deviceRegistrarObj = new DeviceRegistrar_DTO
             {
-                commandToExecute = $"INSERT INTO DeviceRegistrar " +
-                                   $"(deviceRegistrationCode, IsDeviceRegistrationActive, ownerID, ownerMobileNumber, ownerType, RegistrationDate, LastLoggedDeviceType) " +
-                                   $"VALUES ({deviceRegistrationCode}, {-1}, {ownerID}, {ownerMobileNumber}, {ownerType}, {DateTime.Now}, {deviceType})";
+                DeviceRegistrationCode = deviceRegistrationCode,
+                IsDeviceRegistrationActive = -1,
+                OwnerId = ownerID,
+                OwnerMobileNumber = ownerMobileNumber,
+                OwnerType = ownerType.ToString(),
+                RegistrationDate = DateTime.Now,
+                LastLoggedDeviceType = deviceType
+            };
 
+            if (isTokenRegistredBefor == null)
+            {
+                await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.AddAsync(deviceRegistrarObj);
             }
             else
             {
-                commandToExecute = $"UPDATE DeviceRegistrar SET " +
-                                   $"DeviceRegistrationCode = {deviceRegistrationCode}, RegistrationDate = {DateTime.Now}, LastLoggedDeviceType = {deviceType} " +
-                                   $"WHERE OwnerID = {ownerID}";
+                await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.UpdateAsync(deviceRegistrarObj);
             }
-
-            _db.Database.ExecuteSqlCommand(commandToExecute);
-            _db.SaveChanges();
         }
+
 
         [HttpGet]
         public DeviceRegistrar GetDevRegIdByAttendantId(string OwnerID)
