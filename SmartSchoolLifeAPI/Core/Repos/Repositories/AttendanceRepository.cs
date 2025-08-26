@@ -12,6 +12,7 @@ using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartSchoolLifeAPI.Core.Repos
 {
@@ -390,7 +391,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
             return teachertableinfo.Any() ? teachertableinfo : null;
         }
 
-        public void AddAttendanceByTeacher(List<AttendanceInsertDTO> model,
+        public async Task AddAttendanceByTeacher(List<AttendanceInsertDTO> model,
             int schoolId, string schoolYear, int sessionNumber, string date, string teacherId)
         {
             if (sessionNumber < 1 || sessionNumber > 8)
@@ -462,11 +463,11 @@ namespace SmartSchoolLifeAPI.Core.Repos
                     }
                 }
 
-                _pushNotificationHandler.SendPushNotification(teacherId, "Attendance", model);
+                await _pushNotificationHandler.SendPushNotification(teacherId, "Attendance", model);
             }
         }
 
-        public void AddAttendanceByParent(StudentAttendanceByParentDTO absenceModel)
+        public async Task AddAttendanceByParent(StudentAttendanceByParentDTO absenceModel)
         {
             if (string.IsNullOrEmpty(absenceModel.ToDate))
                 absenceModel.ToDate = absenceModel.FromDate;
@@ -550,7 +551,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
                 }
                 else
                 {
-                    SmartSchoolLifeAPI.Attendance obj = new SmartSchoolLifeAPI.Attendance();
+                    Attendance obj = new Attendance();
                     obj.SchoolID = absenceModel.SchoolId;
                     obj.SchoolYear = absenceModel.SchoolYear;
                     obj.StudentID = absenceModel.StudentId;
@@ -612,7 +613,7 @@ namespace SmartSchoolLifeAPI.Core.Repos
                     }
                 }
 
-                _pushNotificationHandler.SendPushNotification(absenceModel.StudentId, absenceModel.Sessions, _sessionProperties, "Attendance", DateTime.ParseExact(dateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd"));
+                await _pushNotificationHandler.SendPushNotification(absenceModel.StudentId, absenceModel.Sessions, _sessionProperties, "Attendance", DateTime.ParseExact(dateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd"));
             }
         }
 

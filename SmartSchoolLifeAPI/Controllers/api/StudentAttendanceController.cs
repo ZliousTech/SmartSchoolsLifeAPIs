@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace SmartSchoolLifeAPI.Controllers.api
@@ -62,7 +63,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
 
         [Route("AddAttendanceByTeacher")]
         [HttpPost]
-        public IHttpActionResult AddAttendanceByTeacher([FromBody][Required] List<AttendanceInsertDTO> model,
+        public async Task<IHttpActionResult> AddAttendanceByTeacher([FromBody][Required] List<AttendanceInsertDTO> model,
             [Required] int schoolId, [Required] string schoolYear, [Required] int sessionNumber,
             [Required] string date, [Required] string teacherId)
         {
@@ -70,7 +71,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
             {
                 if (model.Any())
                 {
-                    _attendanceRepository.AddAttendanceByTeacher(model, schoolId, schoolYear, sessionNumber, date, teacherId);
+                    await _attendanceRepository.AddAttendanceByTeacher(model, schoolId, schoolYear, sessionNumber, date, teacherId);
                     return Content(HttpStatusCode.Created, Messages.Inserted("Students Attendance"));
                 }
 
