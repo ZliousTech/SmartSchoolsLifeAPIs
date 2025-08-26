@@ -39,7 +39,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
         public async Task UpdateDeviceRegCode(string deviceRegistrationCode, int deviceType, string ownerId)
         {
             var deviceRegistrarObj = (await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.Where(d => d.OwnerId == ownerId)).FirstOrDefault();
-            if (deviceRegistrarObj is null)
+            if (deviceRegistrarObj == null)
             {
                 return;
             }
