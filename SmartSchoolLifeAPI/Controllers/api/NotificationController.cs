@@ -36,22 +36,29 @@ namespace SmartSchoolLifeAPI.Controllers.api
         }
 
         [HttpGet]
-        public void UpdateDeviceRegCode(string deviceRegistrationCode, short deviceType, string ownerId)
+        public async Task UpdateDeviceRegCode(string deviceRegistrationCode, int deviceType, string ownerId)
         {
-            _db.Database.ExecuteSqlCommand("UPDATE DeviceRegistrar SET deviceRegistrationCode = {0}, LastLoggedDeviceType = {1} WHERE ownerID = {2}",
-                                            deviceRegistrationCode, deviceType, ownerId);
-            _db.SaveChanges();
+            var deviceRegistrarObj = (await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.Where(d => d.OwnerId == ownerId)).FirstOrDefault();
+            if (deviceRegistrarObj is null)
+            {
+                return;
+            }
+
+            deviceRegistrarObj.DeviceRegistrationCode = deviceRegistrationCode;
+            deviceRegistrarObj.LastLoggedDeviceType = deviceType;
+
+            await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.UpdateAsync(deviceRegistrarObj);
         }
 
         [HttpGet]
-        public async Task AddDeviceRegCode(string ownerID, string ownerMobileNumber, int ownerType, short deviceType, string deviceRegistrationCode = null)
+        public async Task AddDeviceRegCode(string ownerId, string ownerMobileNumber, int ownerType, int deviceType, string deviceRegistrationCode = null)
         {
-            var isTokenRegistredBefor = (await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.Where(d => d.OwnerId == ownerID)).FirstOrDefault();
+            var isTokenRegistredBefor = (await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.Where(d => d.OwnerId == ownerId)).FirstOrDefault();
             var deviceRegistrarObj = new DeviceRegistrar_DTO
             {
                 DeviceRegistrationCode = deviceRegistrationCode,
                 IsDeviceRegistrationActive = -1,
-                OwnerId = ownerID,
+                OwnerId = ownerId,
                 OwnerMobileNumber = ownerMobileNumber,
                 OwnerType = ownerType.ToString(),
                 RegistrationDate = DateTime.Now,
@@ -64,52 +71,22 @@ namespace SmartSchoolLifeAPI.Controllers.api
             }
             else
             {
+                deviceRegistrarObj.Id = isTokenRegistredBefor.Id;
                 await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.UpdateAsync(deviceRegistrarObj);
             }
         }
 
-
         [HttpGet]
-        public DeviceRegistrar GetDevRegIdByAttendantId(string OwnerID)
+        public async Task<DeviceRegistrar_DTO> GetDevRegIdByAttendantId(string ownerId)
         {
-            return _db.DeviceRegistrars.SingleOrDefault(x => x.OwnerID == OwnerID);
+            return (await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.Where(d => d.OwnerId == ownerId)).FirstOrDefault();
         }
-
-        //[HttpGet]
-        //public void SendFCM(string receiverToken, string MsgTitle, string MsgBody)
-        //{
-        //    var data = new
-        //    {
-        //        to = receiverToken,
-        //        notification = new
-        //        {
-        //            body = MsgBody,
-        //            title = MsgTitle,
-        //            sound = "horn.mp3"
-        //        }
-        //    };
-
-        //    using (var client = new WebClient())
-        //    {
-        //        //var dataString = JsonConvert.SerializeObject(data);
-        //        //client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-        //        //client.Headers.Add(HttpRequestHeader.Accept, "application/json");
-        //        //client.Headers.Add("Authorization", "key=AAAAhKNFcBE:APA91bGKl1Vd69fNuf1XJ7jNTjeWM6Pz9UbO5L95YXf9b03LxBBvYW_O7E-KzrjMGV8gp6qkwlfdUn3mkXu6DXMUOxWXSNUTO1ZH2m3nZSKcd1iKxFoycQPICp-tld7e6BpbluAVXlnA");
-        //        //client.UploadString(new Uri("https://fcm.googleapis.com/v1/projects/busfirebaseproject-c4384/messages:send"), dataString);
-        //    }
-        //}
 
         [HttpGet]
         public async Task SendFCM(string receiverToken, string title, string message, string type = "Alert")
         {
             await _fireBaseService.SendNotificationAsync(receiverToken, type, message, title);
         }
-
-        //[HttpGet]
-        //public IEnumerable<Notification> GetNotificationsByReceiverID(string DesitinationID, int DestinationType)
-        //{
-        //    return _db.Notifications.Where(x => x.DesitinationID == DesitinationID && x.DestinationType == DestinationType).OrderByDescending(x => x.NotificationID).ToList();
-        //}
 
         [HttpGet]
         public IEnumerable<dynamic> GetNotificationsByReceiverID(string DesitinationID, int DestinationType)
