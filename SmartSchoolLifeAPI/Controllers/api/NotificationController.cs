@@ -83,9 +83,9 @@ namespace SmartSchoolLifeAPI.Controllers.api
         }
 
         [HttpGet]
-        public async Task SendFCM(string receiverToken, string title, string message, string type = "Alert")
+        public async Task SendFCM(string receiverToken, string title, string message, string type = "Alert", string sound = "default")
         {
-            await _fireBaseService.SendNotificationAsync(receiverToken, type, message, title);
+            await _fireBaseService.SendNotificationAsync(receiverToken, type, message, title, sound);
         }
 
         [HttpGet]
