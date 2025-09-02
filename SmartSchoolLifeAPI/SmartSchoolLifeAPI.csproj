@@ -280,6 +280,7 @@
     <Compile Include="Controllers\api\AttendanceController.cs" />
     <Compile Include="Controllers\api\BusController.cs" />
     <Compile Include="Controllers\api\BusTrackController.cs" />
+    <Compile Include="Controllers\api\SmartSchoolWebLiteController.cs" />
     <Compile Include="Core\ViewModels\CountriesVM.cs" />
     <Compile Include="Controllers\api\CountriesController.cs" />
     <Compile Include="Controllers\api\DateTimeForCountryController.cs" />
@@ -602,6 +603,7 @@
     <Folder Include="Core\Views\DateTimeForCountry\" />
     <Folder Include="Core\Views\Grades\" />
     <Folder Include="Core\Views\HomeWork\" />
+    <Folder Include="Core\Views\SmartSchoolWebLite\" />
     <Folder Include="Core\Views\StudentAttendance\" />
     <Folder Include="Core\Views\Student\" />
   </ItemGroup>
