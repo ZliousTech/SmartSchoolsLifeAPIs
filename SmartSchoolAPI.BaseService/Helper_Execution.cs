@@ -14,7 +14,7 @@ namespace SmartSchoolAPI.BaseService
         private static ILoggerService _loggerService { get; } = new LoggerService();
 
         public static async Task<IHttpActionResult> ExecuteAsync<T>(this ApiController controller, Func<Task<BaseResponseDTO<T>>> action)
-            where T : class
+            where T : class, new()
         {
             try
             {
@@ -30,10 +30,12 @@ namespace SmartSchoolAPI.BaseService
             catch (Exception ex)
             {
                 _loggerService.Error(ex.ToString(), MethodBase.GetCurrentMethod().Name);
-                return new NegotiatedContentResult<dynamic>(HttpStatusCode.InternalServerError,
-                                                           new
+                return new NegotiatedContentResult<BaseResponseDTO<T>>(HttpStatusCode.InternalServerError,
+                                                           new BaseResponseDTO<T>
                                                            {
-                                                               Message = "An error occurred, please try again. If the problem occurs again, contact the administrator."
+                                                               IsSuccess = false,
+                                                               Data = new T(),
+                                                               Message = "Please re-try again, if the error persist please contact Administrator."
                                                            }, controller);
             }
         }
