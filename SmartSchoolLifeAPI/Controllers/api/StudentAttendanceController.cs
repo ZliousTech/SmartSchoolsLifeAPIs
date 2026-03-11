@@ -1,4 +1,8 @@
-﻿using SmartSchoolLifeAPI.Core.DTOs;
+﻿using SmartSchoolAPI.BaseService;
+using SmartSchoolAPI.DataService;
+using SmartSchoolAPI.Entities;
+using SmartSchoolAPI.IDataService;
+using SmartSchoolLifeAPI.Core.DTOs;
 using SmartSchoolLifeAPI.Core.Models.Helpers;
 using SmartSchoolLifeAPI.Core.Repos;
 using System;
@@ -15,10 +19,11 @@ namespace SmartSchoolLifeAPI.Controllers.api
     [RoutePrefix("api/StudentAttendance")]
     public class StudentAttendanceController : ApiController
     {
-        private readonly IAttendanceRepository _attendanceRepository;
+        private IAttendanceRepository _attendanceRepository { get; } = new AttendanceRepository();
+        private IStudentAttendanceDSL _studentAttendanceDSL { get; } = new StudentAttendanceDSL();
+
         public StudentAttendanceController()
         {
-            _attendanceRepository = new AttendanceRepository();
         }
 
         [Route("GetStudentAttendance")]
@@ -30,8 +35,9 @@ namespace SmartSchoolLifeAPI.Controllers.api
                 dynamic studentAttendance = _attendanceRepository.GetStudentAttendance(studentID, date);
 
                 if (studentAttendance != null)
+                {
                     return Ok(studentAttendance);
-
+                }
 
                 return Content(HttpStatusCode.NotFound, Messages.NoData("Attendance"));
             }
@@ -39,6 +45,15 @@ namespace SmartSchoolLifeAPI.Controllers.api
             {
                 return Content(HttpStatusCode.BadRequest, Messages.Exception(ex));
             }
+        }
+
+        [Route("GetStudentAttendancePerTeacher")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetStudentAttendancePerTeacher(StudentAttendancesRequest studentAttendancesRequest)
+        {
+            return await this.ExecuteAsync(
+                () => _studentAttendanceDSL.GetStudentsAttendancePerTeacher(studentAttendancesRequest)
+            );
         }
 
         [Route("GetAbsenceReasons")]
@@ -50,8 +65,9 @@ namespace SmartSchoolLifeAPI.Controllers.api
                 dynamic absenceReasons = _attendanceRepository.GetAbsenceReasons();
 
                 if (absenceReasons != null)
+                {
                     return Ok(absenceReasons);
-
+                }
 
                 return Content(HttpStatusCode.NotFound, Messages.NoData("Absence Reasons"));
             }
@@ -90,7 +106,9 @@ namespace SmartSchoolLifeAPI.Controllers.api
             try
             {
                 if (!absenceModel.Sessions.Any())
+                {
                     return Content(HttpStatusCode.BadRequest, Messages.ErrorMessage("Sessions list is null or empty."));
+                }
 
                 _attendanceRepository.AddAttendanceByParent(absenceModel);
                 return Content(HttpStatusCode.Created, Messages.Inserted("Student Attendance"));

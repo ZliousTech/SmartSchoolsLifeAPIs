@@ -620,11 +620,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SmartSchoolsWeb\SmartSchool.Core.DataService\SmartSchool.Core.DataService.csproj">
-      <Project>{53bc3de2-f834-4f9b-a699-1e127683f13d}</Project>
+      <Project>{53BC3DE2-F834-4F9B-A699-1E127683F13D}</Project>
       <Name>SmartSchool.Core.DataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\SmartSchoolsWeb\SmartSchool.Core.IDataService\SmartSchool.Core.IDataService.csproj">
-      <Project>{73ae4e3c-5398-43c9-b23e-ea7082968cfc}</Project>
+      <Project>{73AE4E3C-5398-43C9-B23E-EA7082968CFC}</Project>
       <Name>SmartSchool.Core.IDataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\SmartSchoolsWeb\SmartSchool.FireBase.Service\SmartSchool.FireBase.Service.csproj">
@@ -638,6 +638,22 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{a15f2215-bda2-44f8-8876-673991c0fe28}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartSchoolAPI.BaseService\SmartSchoolAPI.BaseService.csproj">
+      <Project>{a3bcf721-df6f-4814-b33a-04caa9e991eb}</Project>
+      <Name>SmartSchoolAPI.BaseService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartSchoolAPI.DataService\SmartSchoolAPI.DataService.csproj">
+      <Project>{25b70751-1d05-45df-ac35-0aeb440694ef}</Project>
+      <Name>SmartSchoolAPI.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartSchoolAPI.Entities\SmartSchoolAPI.Entities.csproj">
+      <Project>{4c4ef23c-3c79-4f56-86a2-dcb627ad7239}</Project>
+      <Name>SmartSchoolAPI.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartSchoolAPI.IDataService\SmartSchoolAPI.IDataService.csproj">
+      <Project>{02d217f9-73e8-4b93-a5bb-58499def3ed0}</Project>
+      <Name>SmartSchoolAPI.IDataService</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

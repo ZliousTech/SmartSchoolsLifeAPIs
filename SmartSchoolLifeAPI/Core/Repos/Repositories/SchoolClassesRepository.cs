@@ -26,12 +26,10 @@ namespace SmartSchoolLifeAPI.Core.Repos
 
         public void Update(SchoolClasses entity)
         {
-
         }
 
         public void Delete(int id)
         {
-
         }
 
         public dynamic GetSchoolClasses(int schoolId)
@@ -56,64 +54,6 @@ namespace SmartSchoolLifeAPI.Core.Repos
             }
 
             return schoolClasses;
-        }
-
-        // TODO: Uncomment this function.
-        //public dynamic GetTeacherSchoolClasses(string teacherId, string schoolYear)
-        //{
-        //    schoolYear = !string.IsNullOrEmpty(schoolYear) ? schoolYear : new SystemSettingsRepository().GetSystemSettings().CurrentAcademicYear;
-        //    dynamic teacherSchoolClasses = new ExpandoObject();
-        //    string query = "SELECT DISTINCT(c.SchoolClassID), c.SchoolClassArabicName, c.SchoolClassEnglishName FROM TimetableItems t " +
-        //        "INNER JOIN SchoolClasses c ON t.SchoolClassID = c.SchoolClassID " +
-        //        "WHERE t.TeacherID = @TeacherID AND t.SchoolYear = @SchoolYear";
-
-        //    using (SqlConnection conn = new SqlConnection(ConnectionString.ConnStr()))
-        //    {
-        //        conn.Open();
-        //        using (SqlCommand comm = new SqlCommand(query, conn))
-        //        {
-        //            comm.Parameters.AddWithValue("@TeacherID", teacherId);
-        //            comm.Parameters.AddWithValue("@SchoolYear", schoolYear);
-        //            using (SqlDataReader reader = comm.ExecuteReader())
-        //            {
-        //                teacherSchoolClasses = reader.MapAll();
-        //            }
-        //        }
-        //        conn.Close();
-        //        conn.Dispose();
-        //    }
-
-        //    return teacherSchoolClasses;
-        //}
-
-
-        // Hint: this is a temporary solution.
-        public dynamic GetTeacherSchoolClasses(string teacherId, string schoolYear)
-        {
-            schoolYear = !string.IsNullOrEmpty(schoolYear) ? schoolYear : new SystemSettingsRepository().GetSystemSettings().CurrentAcademicYear;
-            dynamic teacherSchoolClasses = new ExpandoObject();
-            string query = "SELECT c.SchoolClassID, c.SchoolClassArabicName, c.SchoolClassEnglishName FROM SchoolClasses c " +
-                "WHERE SchoolID = " +
-                "(SELECT TOP(1) t.SchoolID FROM TimetableItems t " +
-                "WHERE t.TeacherID = @TeacherID AND t.SchoolYear = @SchoolYear)";
-
-            using (SqlConnection conn = new SqlConnection(ConnectionString.ConnStr()))
-            {
-                conn.Open();
-                using (SqlCommand comm = new SqlCommand(query, conn))
-                {
-                    comm.Parameters.AddWithValue("@TeacherID", teacherId);
-                    comm.Parameters.AddWithValue("@SchoolYear", schoolYear);
-                    using (SqlDataReader reader = comm.ExecuteReader())
-                    {
-                        teacherSchoolClasses = reader.MapAll();
-                    }
-                }
-                conn.Close();
-                conn.Dispose();
-            }
-
-            return teacherSchoolClasses;
         }
     }
 }

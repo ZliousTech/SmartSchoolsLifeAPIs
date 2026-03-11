@@ -1,9 +1,13 @@
-﻿using SmartSchoolLifeAPI.Core.Models.Helpers;
+﻿using SmartSchoolAPI.BaseService;
+using SmartSchoolAPI.DataService;
+using SmartSchoolAPI.IDataService;
+using SmartSchoolLifeAPI.Core.Models.Helpers;
 using SmartSchoolLifeAPI.Core.Repos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace SmartSchoolLifeAPI.Controllers.api
@@ -12,6 +16,8 @@ namespace SmartSchoolLifeAPI.Controllers.api
     public class SchoolClassesController : ApiController
     {
         private readonly ISchoolClassesRepository _schoolClassesRepository;
+        private ISchoolClassDSL _schoolClassDSL { get; } = new SchoolClassDSL();
+
         public SchoolClassesController()
         {
             _schoolClassesRepository = new SchoolClassesRepository();
@@ -26,7 +32,9 @@ namespace SmartSchoolLifeAPI.Controllers.api
                 IEnumerable<dynamic> schoolClasses = _schoolClassesRepository.GetSchoolClasses(schoolID);
 
                 if (schoolClasses.Any())
+                {
                     return Ok(schoolClasses);
+                }
 
                 return Content(HttpStatusCode.NotFound, Messages.NoData("School Classes"));
             }
@@ -38,21 +46,11 @@ namespace SmartSchoolLifeAPI.Controllers.api
 
         [Route("GetTeacherSchoolClasses")]
         [HttpGet]
-        public IHttpActionResult GetTeacherSchoolClasses([FromUri] string teacherId, [FromUri] string schoolYear)
+        public async Task<IHttpActionResult> GetTeacherSchoolClasses([FromUri] string teacherId)
         {
-            try
-            {
-                IEnumerable<dynamic> teacherSchoolClasses = _schoolClassesRepository.GetTeacherSchoolClasses(teacherId, schoolYear);
-
-                if (teacherSchoolClasses.Any())
-                    return Ok(teacherSchoolClasses);
-
-                return Content(HttpStatusCode.NotFound, Messages.NoData("School Classes"));
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, Messages.Exception(ex));
-            }
+            return await this.ExecuteAsync(
+                () => _schoolClassDSL.GetTeacherSchoolClasses(teacherId)
+            );
         }
     }
 }
