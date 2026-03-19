@@ -17,7 +17,7 @@ using System.Web.Http;
 namespace SmartSchoolLifeAPI.Controllers.api
 {
     [RoutePrefix("api/StudentAttendance")]
-    public class StudentAttendanceController : ApiController
+    public class StudentAttendanceController : BaseController
     {
         private IAttendanceRepository _attendanceRepository { get; } = new AttendanceRepository();
         private IStudentAttendanceDSL _studentAttendanceDSL { get; } = new StudentAttendanceDSL();
@@ -51,7 +51,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
         [HttpPost]
         public async Task<IHttpActionResult> GetStudentAttendancePerTeacher(StudentAttendancesRequest studentAttendancesRequest)
         {
-            return await this.ExecuteAsync(
+            return await ExecuteAsync(
                 () => _studentAttendanceDSL.GetStudentsAttendancePerTeacher(studentAttendancesRequest)
             );
         }

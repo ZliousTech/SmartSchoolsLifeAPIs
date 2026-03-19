@@ -69,7 +69,7 @@ namespace SmartSchoolAPI.DataService
                                         .Cast<AttendanceTypeEnum>()
                                         .Select(e => $"{(int)e} ({e})"));
 
-                validationMessage.Add($"{nameof(studentAttendancesRequest.AttendanceType)}e must be one of: {validEnumValues}");
+                validationMessage.Add($"{nameof(studentAttendancesRequest.AttendanceType)} must be one of: {validEnumValues}");
             }
 
             return new StudentAttendancesRequest

@@ -13,7 +13,7 @@ using System.Web.Http;
 namespace SmartSchoolLifeAPI.Controllers.api
 {
     [RoutePrefix("api/SchoolClasses")]
-    public class SchoolClassesController : ApiController
+    public class SchoolClassesController : BaseController
     {
         private readonly ISchoolClassesRepository _schoolClassesRepository;
         private ISchoolClassDSL _schoolClassDSL { get; } = new SchoolClassDSL();
@@ -48,7 +48,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
         [HttpGet]
         public async Task<IHttpActionResult> GetTeacherSchoolClasses([FromUri] string teacherId)
         {
-            return await this.ExecuteAsync(
+            return await ExecuteAsync(
                 () => _schoolClassDSL.GetTeacherSchoolClasses(teacherId)
             );
         }
