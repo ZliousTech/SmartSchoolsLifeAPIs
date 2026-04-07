@@ -1,29 +1,28 @@
-﻿using SmartSchool.Core.DataService;
-using SmartSchool.Core.IDataService;
-using SmartSchool.FireBase.Service;
-using SmartSchool.FireBase.Service.DataService;
+﻿using SmartSchoolAPI.BaseService;
+using SmartSchoolAPI.DataService;
+using SmartSchoolAPI.Entities;
+using SmartSchoolAPI.IDataService;
 using SmartSchoolLifeAPI.Core.Models.Extensions;
 using SmartSchoolLifeAPI.Core.Models.Shared;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace SmartSchoolLifeAPI.Controllers.api
 {
-    public class NotificationController : ApiController
+    [RoutePrefix("api/Notification")]
+    public class NotificationController : BaseController
     {
         SmartSchoolsEntities2 _db;
-        private readonly IFireBaseService _fireBaseService;
-        private readonly ISmartSchoolDataServiceFactory _smartSchoolDataServiceFactory;
+        private INotificationDSL _notificationDSL { get; } = new NotificationDSL();
 
         public NotificationController()
         {
             _db = new SmartSchoolsEntities2();
-            _fireBaseService = new FireBaseService();
-            _smartSchoolDataServiceFactory = new SmartSchoolDataServiceFactory();
         }
 
         [HttpPost]
@@ -35,57 +34,40 @@ namespace SmartSchoolLifeAPI.Controllers.api
             _db.SaveChanges();
         }
 
-        [HttpGet]
-        public async Task UpdateDeviceRegCode(string deviceRegistrationCode, int deviceType, string ownerId)
+        [HttpPost]
+        [Route("UpdateDeviceRegCode")]
+        public async Task<IHttpActionResult> UpdateDeviceRegCode(UpdateDeviceRegistrarRequest updateDeviceRegistrarRequest)
         {
-            var deviceRegistrarObj = (await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.Where(d => d.OwnerId == ownerId)).FirstOrDefault();
-            if (deviceRegistrarObj == null)
-            {
-                return;
-            }
+            return await ExecuteAsync(async () =>
+               await _notificationDSL.UpdateDeviceRegCode(updateDeviceRegistrarRequest)
+            );
+        }
 
-            deviceRegistrarObj.DeviceRegistrationCode = deviceRegistrationCode;
-            deviceRegistrarObj.LastLoggedDeviceType = deviceType;
-
-            await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.UpdateAsync(deviceRegistrarObj);
+        [HttpPost]
+        [Route("AddDeviceRegCode")]
+        public async Task<IHttpActionResult> AddDeviceRegCode(AddDeviceRegistrarRequest addDeviceRegistrarRequest)
+        {
+            return await ExecuteAsync(async () =>
+                await _notificationDSL.AddDeviceRegCode(addDeviceRegistrarRequest)
+            , HttpStatusCode.Created);
         }
 
         [HttpGet]
-        public async Task AddDeviceRegCode(string ownerId, string ownerMobileNumber, int ownerType, int deviceType, string deviceRegistrationCode = null)
+        [Route("GetDevRegIdByAttendantId")]
+        public async Task<IHttpActionResult> GetDevRegIdByAttendantId(string ownerId)
         {
-            var isTokenRegistredBefor = (await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.Where(d => d.OwnerId == ownerId)).FirstOrDefault();
-            var deviceRegistrarObj = new DeviceRegistrar_DTO
-            {
-                DeviceRegistrationCode = deviceRegistrationCode,
-                IsDeviceRegistrationActive = -1,
-                OwnerId = ownerId,
-                OwnerMobileNumber = ownerMobileNumber,
-                OwnerType = ownerType.ToString(),
-                RegistrationDate = DateTime.Now,
-                LastLoggedDeviceType = deviceType
-            };
-
-            if (isTokenRegistredBefor == null)
-            {
-                await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.AddAsync(deviceRegistrarObj);
-            }
-            else
-            {
-                deviceRegistrarObj.Id = isTokenRegistredBefor.Id;
-                await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.UpdateAsync(deviceRegistrarObj);
-            }
+            return await ExecuteAsync(async () =>
+               await _notificationDSL.GetDevRegIdByAttendantId(ownerId)
+            );
         }
 
         [HttpGet]
-        public async Task<DeviceRegistrar_DTO> GetDevRegIdByAttendantId(string ownerId)
+        [Route("SendFCM")]
+        public async Task<IHttpActionResult> SendFCM(string receiverToken, string title, string message, string type = "Alert", string sound = "default")
         {
-            return (await _smartSchoolDataServiceFactory.CreateDeviceRegistrarService.Where(d => d.OwnerId == ownerId)).FirstOrDefault();
-        }
-
-        [HttpGet]
-        public async Task SendFCM(string receiverToken, string title, string message, string type = "Alert", string sound = "default")
-        {
-            await _fireBaseService.SendNotificationAsync(receiverToken, type, message, title, sound);
+            return await ExecuteAsync(async () =>
+               await _notificationDSL.SendFCM(receiverToken, title, message, type, sound)
+            );
         }
 
         [HttpGet]

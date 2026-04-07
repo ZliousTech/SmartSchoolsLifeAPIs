@@ -29,7 +29,23 @@ namespace SmartSchoolAPI.DataService
                                                                                                                       requestedStudentAttendance.AttendanceDate,
                                                                                                                       (AttendanceTypeEnum?)requestedStudentAttendance.AttendanceType);
 
-            return BaseResponseDSL<List<StudentAttendancesResponse>>.CreateGenericResponse(true, MapToStudentAttendanceResponse(studentAttendance), string.Empty);
+            return BaseResponseDSL<List<StudentAttendancesResponse>>.CreateGenericResponse(true, MapToStudentAttendanceResponse(studentAttendance));
+        }
+
+        public async Task<BaseResponseDTO<string>> InsertQuickAttendanceWithNotification(QuickAttendanceRequest quickAttendanceRequest)
+        {
+            ValidateQuickAttendanceRequest(quickAttendanceRequest, out List<string> validationMessage);
+
+            if (validationMessage.Any())
+            {
+                return BaseResponseDSL<string>.CreateGenericResponse(false, string.Empty, string.Join(", ", validationMessage));
+            }
+
+            await SmartSchoolAPIDataService_StudentAttendance.InsertQuickAttendanceWithNotification(quickAttendanceRequest.AbsenceStudentData,
+                                                                                                    quickAttendanceRequest.SchoolId,
+                                                                                                    quickAttendanceRequest.TeacherId);
+
+            return BaseResponseDSL<string>.CreateGenericResponse(true, "Attendance created.");
         }
 
         private StudentAttendancesRequest ValidateAndMapStudnetAttendanceRequest(StudentAttendancesRequest studentAttendancesRequest,
@@ -108,6 +124,39 @@ namespace SmartSchoolAPI.DataService
                 IsAbsence = s.IsAbsence,
                 IsManualAttendance = s.IsManualAttendance
             }).ToList();
+        }
+
+        private void ValidateQuickAttendanceRequest(QuickAttendanceRequest quickAttendanceRequest,
+                                                    out List<string> validationMessage)
+        {
+            validationMessage = new List<string>();
+
+            if (quickAttendanceRequest == null)
+            {
+                validationMessage.Add("Request body can't be empty");
+                return;
+            }
+
+            if (quickAttendanceRequest.AbsenceStudentData == null)
+            {
+                validationMessage.Add($"{nameof(QuickAttendanceRequest.AbsenceStudentData)} is required");
+                return;
+            }
+
+            if (quickAttendanceRequest.AbsenceStudentData.Any(d => string.IsNullOrWhiteSpace(d.StudentId)))
+            {
+                validationMessage.Add($"All (StudentId) properties are required");
+            }
+
+            if (quickAttendanceRequest.SchoolId <= 0)
+            {
+                validationMessage.Add($"{nameof(QuickAttendanceRequest.SchoolId)} must be more than 0");
+            }
+
+            if (string.IsNullOrWhiteSpace(quickAttendanceRequest.TeacherId))
+            {
+                validationMessage.Add($"{nameof(QuickAttendanceRequest.TeacherId)} is required");
+            }
         }
     }
 }

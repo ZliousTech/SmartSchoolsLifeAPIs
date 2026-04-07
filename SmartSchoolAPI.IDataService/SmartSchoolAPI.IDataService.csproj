@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -41,12 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="INotificationDSL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolClass\ISchoolClassDSL.cs" />
     <Compile Include="StudentAttendance\IStudentAttendanceDSL.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\SmartSchoolsWeb\SmartSchool.Core.DataEntityTier\SmartSchool.Core.DataEntityTier.csproj">
+      <Project>{0C51EC04-F397-4944-8A67-9CC99FBF5773}</Project>
+      <Name>SmartSchool.Core.DataEntityTier</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SmartSchoolAPI.Entities\SmartSchoolAPI.Entities.csproj">
       <Project>{4c4ef23c-3c79-4f56-86a2-dcb627ad7239}</Project>
       <Name>SmartSchoolAPI.Entities</Name>

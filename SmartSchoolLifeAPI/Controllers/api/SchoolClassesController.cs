@@ -44,12 +44,12 @@ namespace SmartSchoolLifeAPI.Controllers.api
             }
         }
 
-        [Route("GetTeacherSchoolClasses")]
         [HttpGet]
+        [Route("GetTeacherSchoolClasses")]
         public async Task<IHttpActionResult> GetTeacherSchoolClasses([FromUri] string teacherId)
         {
-            return await ExecuteAsync(
-                () => _schoolClassDSL.GetTeacherSchoolClasses(teacherId)
+            return await ExecuteAsync(async () =>
+                await _schoolClassDSL.GetTeacherSchoolClasses(teacherId)
             );
         }
     }

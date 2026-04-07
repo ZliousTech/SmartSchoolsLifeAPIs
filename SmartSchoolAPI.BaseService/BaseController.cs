@@ -13,8 +13,9 @@ namespace SmartSchoolAPI.BaseService
     {
         private ILoggerService _loggerService { get; } = new LoggerService();
 
-        public async Task<IHttpActionResult> ExecuteAsync<T>(Func<Task<BaseResponseDTO<T>>> action)
-            where T : class, new()
+        public async Task<IHttpActionResult> ExecuteAsync<T>(Func<Task<BaseResponseDTO<T>>> action,
+                                                             HttpStatusCode successStatusCode = HttpStatusCode.OK)
+            where T : class
         {
             try
             {
@@ -25,11 +26,11 @@ namespace SmartSchoolAPI.BaseService
                     return Content(HttpStatusCode.BadRequest, response);
                 }
 
-                return Ok(response);
+                return Content(successStatusCode, response);
             }
             catch (Exception ex)
             {
-                var methodName = $"{ex.TargetSite?.Name}.{ex.TargetSite?.DeclaringType?.FullName}";
+                var methodName = ActionContext?.ActionDescriptor?.ActionName ?? "UnknownAction";
                 var requestInfo = await BuildRequestInfoAsync();
 
                 _loggerService.Error($"Exception: {ex.ToString()}\n{requestInfo}", methodName);
@@ -37,7 +38,7 @@ namespace SmartSchoolAPI.BaseService
                 return Content(HttpStatusCode.InternalServerError, new BaseResponseDTO<T>
                 {
                     IsSuccess = false,
-                    Data = new T(),
+                    Data = default(T),
                     Message = "Please re-try again, if the error persist please contact Administrator."
                 });
             }
@@ -49,7 +50,11 @@ namespace SmartSchoolAPI.BaseService
 
             loggerBulider.AppendLine($"URL       : {Request.RequestUri}");
             loggerBulider.AppendLine($"Method    : {Request.Method}");
-            loggerBulider.AppendLine($"Query     : {Request.RequestUri.Query}");
+
+            if (!string.IsNullOrWhiteSpace(Request.RequestUri.Query))
+            {
+                loggerBulider.AppendLine($"Query     : {Request.RequestUri.Query}");
+            }
 
             // Parse query string params into key-value pairs
             var queryParams = HttpUtility.ParseQueryString(Request.RequestUri.Query);
@@ -61,10 +66,22 @@ namespace SmartSchoolAPI.BaseService
             // Log request body (POST/PUT params)
             if (Request.Content != null)
             {
-                var body = await Request.Content.ReadAsStringAsync();
-                if (!string.IsNullOrWhiteSpace(body))
+                try
                 {
-                    loggerBulider.AppendLine($"Body      : {body}");
+                    // This is the key: Load the content into a memory buffer 
+                    // so it can be read again even if the controller already read it.
+                    await Request.Content.LoadIntoBufferAsync();
+
+                    var body = await Request.Content.ReadAsStringAsync();
+
+                    if (!string.IsNullOrWhiteSpace(body))
+                    {
+                        loggerBulider.AppendLine($"Body      : {body}");
+                    }
+                }
+                catch (Exception)
+                {
+                    loggerBulider.AppendLine("Body      : [Could not read body - stream likely closed]");
                 }
             }
 

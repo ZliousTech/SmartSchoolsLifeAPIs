@@ -47,13 +47,22 @@ namespace SmartSchoolLifeAPI.Controllers.api
             }
         }
 
-        [Route("GetStudentAttendancePerTeacher")]
         [HttpPost]
+        [Route("GetStudentAttendancePerTeacher")]
         public async Task<IHttpActionResult> GetStudentAttendancePerTeacher(StudentAttendancesRequest studentAttendancesRequest)
         {
-            return await ExecuteAsync(
-                () => _studentAttendanceDSL.GetStudentsAttendancePerTeacher(studentAttendancesRequest)
+            return await ExecuteAsync(async () =>
+                await _studentAttendanceDSL.GetStudentsAttendancePerTeacher(studentAttendancesRequest)
             );
+        }
+
+        [HttpPost]
+        [Route("InsertQuickAttendanceWithNotification")]
+        public async Task<IHttpActionResult> InsertQuickAttendanceWithNotification(QuickAttendanceRequest quickAttendanceRequest)
+        {
+            return await ExecuteAsync(async () =>
+                await _studentAttendanceDSL.InsertQuickAttendanceWithNotification(quickAttendanceRequest)
+            , HttpStatusCode.Created);
         }
 
         [Route("GetAbsenceReasons")]

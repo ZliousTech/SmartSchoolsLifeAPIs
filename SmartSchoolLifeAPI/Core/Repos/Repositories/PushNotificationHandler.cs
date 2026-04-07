@@ -1,6 +1,6 @@
 ﻿using SmartSchool.FireBase.Service;
-using SmartSchool.FireBase.Service.DataService;
 using SmartSchool.Logger.Service;
+using SmartSchoolAPI.DataServiceFactory;
 using SmartSchoolLifeAPI.Core.DTOs;
 using SmartSchoolLifeAPI.Core.Models.Shared;
 using System;
@@ -377,15 +377,19 @@ namespace SmartSchoolLifeAPI.Core.Repos
 
         private async Task SendToParents(IEnumerable<dynamic> guardians, string type, string notificationText, string title)
         {
-            foreach (var guardian in guardians)
-            {
-                await _fireBaseService.SendNotificationAsync(guardian.guardiantoken, type, notificationText, title);
-            }
+            var ownerIds = guardians.Select(g => (string)g.guardianID).ToList();
+            var ownersDevices = await SmartSchoolAPIDataSevice_DeviceRegistrar.GetDeviceRegistrarByOwnerIds(ownerIds);
+
+            var sendTasks = ownersDevices.Select(device =>
+                _fireBaseService.SendNotificationAsync(device.DeviceRegistrationCode, device.LastLoggedDeviceType, type, notificationText, title)
+            ).ToList();
+
+            await Task.WhenAll(sendTasks);
         }
 
         private async Task SendToParent(dynamic guardian, string type, string notificationText, string title)
         {
-            await _fireBaseService.SendNotificationAsync(guardian.guardiantoken, type, notificationText, title);
+            await _fireBaseService.SendNotificationAsync(guardian.guardiantoken, guardian.guardianID, type, notificationText, title);
         }
 
         private int GetNotificaitonTypeId(string type)

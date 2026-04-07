@@ -619,6 +619,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SmartSchoolsWeb\SmartSchool.Core.DataEntityTier\SmartSchool.Core.DataEntityTier.csproj">
+      <Project>{0c51ec04-f397-4944-8a67-9cc99fbf5773}</Project>
+      <Name>SmartSchool.Core.DataEntityTier</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SmartSchoolsWeb\SmartSchool.Core.DataService\SmartSchool.Core.DataService.csproj">
       <Project>{53BC3DE2-F834-4F9B-A699-1E127683F13D}</Project>
       <Name>SmartSchool.Core.DataService</Name>
@@ -642,6 +646,10 @@
     <ProjectReference Include="..\SmartSchoolAPI.BaseService\SmartSchoolAPI.BaseService.csproj">
       <Project>{a3bcf721-df6f-4814-b33a-04caa9e991eb}</Project>
       <Name>SmartSchoolAPI.BaseService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartSchoolAPI.DataServiceFactory\SmartSchoolAPI.DataServiceFactory.csproj">
+      <Project>{ad097456-1951-4ada-9299-107ba2d3b148}</Project>
+      <Name>SmartSchoolAPI.DataServiceFactory</Name>
     </ProjectReference>
     <ProjectReference Include="..\SmartSchoolAPI.DataService\SmartSchoolAPI.DataService.csproj">
       <Project>{25b70751-1d05-45df-ac35-0aeb440694ef}</Project>
@@ -674,7 +682,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>29628</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:29628/</IISUrl>
+          <IISUrl>http://localhost:4000/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

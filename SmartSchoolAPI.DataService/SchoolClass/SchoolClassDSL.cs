@@ -22,7 +22,7 @@ namespace SmartSchoolAPI.DataService
 
             var teacherSchoolClasses = await SmartSchoolAPIDataService_SchoolClass.GetTeacherSchoolClasses(teacherId);
 
-            return BaseResponseDSL<List<TeacherSchoolClassResponse>>.CreateGenericResponse(true, MapToStudentAttendanceResponse(teacherSchoolClasses), string.Empty);
+            return BaseResponseDSL<List<TeacherSchoolClassResponse>>.CreateGenericResponse(true, MapToStudentAttendanceResponse(teacherSchoolClasses));
         }
 
         private void ValidateTeacherSchoolClassRequest(string teacherId, out List<string> validationMessage)

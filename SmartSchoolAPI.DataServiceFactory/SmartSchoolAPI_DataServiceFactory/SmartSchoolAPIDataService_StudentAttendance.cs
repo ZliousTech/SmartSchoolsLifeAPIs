@@ -18,5 +18,10 @@ namespace SmartSchoolAPI.DataServiceFactory
             return await _smartSchool_To_IntegrationStudentAttendanceDSL.GetStudentsAttendancePerTeacher(schoolId, schoolClassId, sectionId,
                                                                                                          teacherId, attendanceDate, attendanceType);
         }
+
+        public static async Task InsertQuickAttendanceWithNotification(List<QuickAttendanceData> absenceStudentData, int schoolId, string teacherId)
+        {
+            await _smartSchool_To_IntegrationStudentAttendanceDSL.InsertQuickAttendanceWithNotification(absenceStudentData, schoolId, teacherId);
+        }
     }
 }
