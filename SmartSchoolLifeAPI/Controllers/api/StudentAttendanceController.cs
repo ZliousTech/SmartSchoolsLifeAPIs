@@ -49,7 +49,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
 
         [HttpPost]
         [Route("GetStudentAttendancePerTeacher")]
-        public async Task<IHttpActionResult> GetStudentAttendancePerTeacher(StudentAttendancesRequest studentAttendancesRequest)
+        public async Task<IHttpActionResult> GetStudentAttendancePerTeacher([FromBody] StudentAttendancesRequest studentAttendancesRequest)
         {
             return await ExecuteAsync(async () =>
                 await _studentAttendanceDSL.GetStudentsAttendancePerTeacher(studentAttendancesRequest)
@@ -58,7 +58,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
 
         [HttpPost]
         [Route("InsertQuickAttendanceWithNotification")]
-        public async Task<IHttpActionResult> InsertQuickAttendanceWithNotification(QuickAttendanceRequest quickAttendanceRequest)
+        public async Task<IHttpActionResult> InsertQuickAttendanceWithNotification([FromBody] QuickAttendanceRequest quickAttendanceRequest)
         {
             return await ExecuteAsync(async () =>
                 await _studentAttendanceDSL.InsertQuickAttendanceWithNotification(quickAttendanceRequest)

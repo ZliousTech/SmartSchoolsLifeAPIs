@@ -31,9 +31,9 @@ namespace SmartSchoolAPI.BaseService
             catch (Exception ex)
             {
                 var methodName = ActionContext?.ActionDescriptor?.ActionName ?? "UnknownAction";
-                var requestInfo = await BuildRequestInfoAsync();
+                var requestInfo = BuildRequestInfoAsync();
 
-                _loggerService.Error($"Exception: {ex.ToString()}\n{requestInfo}", methodName);
+                _loggerService.Error($"Exception: {ex}{Environment.NewLine}requestInfo: {requestInfo}", methodName);
 
                 return Content(HttpStatusCode.InternalServerError, new BaseResponseDTO<T>
                 {
@@ -44,7 +44,7 @@ namespace SmartSchoolAPI.BaseService
             }
         }
 
-        private async Task<string> BuildRequestInfoAsync()
+        private string BuildRequestInfoAsync()
         {
             var loggerBulider = new StringBuilder();
 
@@ -68,15 +68,10 @@ namespace SmartSchoolAPI.BaseService
             {
                 try
                 {
-                    // This is the key: Load the content into a memory buffer 
-                    // so it can be read again even if the controller already read it.
-                    await Request.Content.LoadIntoBufferAsync();
-
-                    var body = await Request.Content.ReadAsStringAsync();
-
-                    if (!string.IsNullOrWhiteSpace(body))
+                    if (Request.Properties.TryGetValue("RequestBodyBuffer", out var cachedBody) &&
+                        cachedBody is string bodyStr && !string.IsNullOrWhiteSpace(bodyStr))
                     {
-                        loggerBulider.AppendLine($"Body      : {body}");
+                        loggerBulider.AppendLine($"Body      : {bodyStr}");
                     }
                 }
                 catch (Exception)
