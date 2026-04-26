@@ -4,6 +4,8 @@ using SmartSchoolAPI.DataServiceFactory;
 using SmartSchoolAPI.Entities;
 using SmartSchoolAPI.IDataService;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SmartSchoolAPI.DataService
@@ -25,6 +27,13 @@ namespace SmartSchoolAPI.DataService
 
         public async Task<BaseResponseDTO<DeviceRegistrar_DTO>> UpdateDeviceRegCode(UpdateDeviceRegistrarRequest updateDeviceRegistrarRequest)
         {
+            ProcessValidateRequestBody(updateDeviceRegistrarRequest, out List<string> validationMessage);
+
+            if (validationMessage.Any())
+            {
+                return BaseResponseDSL<DeviceRegistrar_DTO>.CreateGenericResponse(false, null, string.Join(",", validationMessage));
+            }
+
             var deviceRegistrar = await SmartSchoolAPIDataSevice_DeviceRegistrar.GetDeviceRegistrarByOwnerId(updateDeviceRegistrarRequest.OwnerId);
             if (deviceRegistrar == null)
             {
@@ -39,8 +48,15 @@ namespace SmartSchoolAPI.DataService
             return BaseResponseDSL<DeviceRegistrar_DTO>.CreateGenericResponse(true, updatedDeviceRegistrar);
         }
 
-        public async Task<BaseResponseDTO<DeviceRegistrar_DTO>> AddDeviceRegCode(AddDeviceRegistrarRequest addDeviceRegistrarRequest)
+        public async Task<BaseResponseDTO<DeviceRegistrar_DTO>> AddOrUpdateDeviceRegistrar(AddDeviceRegistrarRequest addDeviceRegistrarRequest)
         {
+            ProcessValidateRequestBody(addDeviceRegistrarRequest, out List<string> validationMessage);
+
+            if (validationMessage.Any())
+            {
+                return BaseResponseDSL<DeviceRegistrar_DTO>.CreateGenericResponse(false, null, string.Join(",", validationMessage));
+            }
+
             var registeredToken = await SmartSchoolAPIDataSevice_DeviceRegistrar.GetDeviceRegistrarByOwnerId(addDeviceRegistrarRequest.OwnerId);
 
             var requestedDeviceRegistrar = new DeviceRegistrar_DTO
@@ -72,6 +88,49 @@ namespace SmartSchoolAPI.DataService
             await _fireBaseService.SendNotificationAsync(receiverToken, lastLoggedDeviceType.Value, type, message, title, sound);
 
             return BaseResponseDSL<string>.CreateGenericResponse(true, "Notification sent.");
+        }
+
+        private void ProcessValidateRequestBody(UpdateDeviceRegistrarRequest payload, out List<string> validationMessage)
+        {
+            validationMessage = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(payload.OwnerId))
+            {
+                validationMessage.Add($"{nameof(UpdateDeviceRegistrarRequest.OwnerId)} is required.");
+            }
+
+            if (!Enum.IsDefined(typeof(DeviceTypeEnum), payload.DeviceType))
+            {
+                var validEnumValues = string.Join(", ", Enum.GetValues(typeof(DeviceTypeEnum))
+                                        .Cast<DeviceTypeEnum>()
+                                        .Select(e => $"{(int)e} ({e})"));
+
+                validationMessage.Add($"{nameof(payload.DeviceType)} must be one of: {validEnumValues}");
+            }
+        }
+
+        private void ProcessValidateRequestBody(AddDeviceRegistrarRequest payload, out List<string> validationMessage)
+        {
+            validationMessage = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(payload.OwnerMobileNumber))
+            {
+                validationMessage.Add($"{nameof(AddDeviceRegistrarRequest.OwnerMobileNumber)} is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(payload.OwnerId))
+            {
+                validationMessage.Add($"{nameof(AddDeviceRegistrarRequest.OwnerId)} is required.");
+            }
+
+            if (!Enum.IsDefined(typeof(DeviceTypeEnum), payload.DeviceType))
+            {
+                var validEnumValues = string.Join(", ", Enum.GetValues(typeof(DeviceTypeEnum))
+                                        .Cast<DeviceTypeEnum>()
+                                        .Select(e => $"{(int)e} ({e})"));
+
+                validationMessage.Add($"{nameof(payload.DeviceType)} must be one of: {validEnumValues}");
+            }
         }
     }
 }

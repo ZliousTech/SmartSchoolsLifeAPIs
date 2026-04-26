@@ -48,7 +48,7 @@ namespace SmartSchoolLifeAPI.Controllers.api
         public async Task<IHttpActionResult> AddDeviceRegCode(AddDeviceRegistrarRequest addDeviceRegistrarRequest)
         {
             return await ExecuteAsync(async () =>
-                await _notificationDSL.AddDeviceRegCode(addDeviceRegistrarRequest)
+                await _notificationDSL.AddOrUpdateDeviceRegistrar(addDeviceRegistrarRequest)
             , HttpStatusCode.Created);
         }
 

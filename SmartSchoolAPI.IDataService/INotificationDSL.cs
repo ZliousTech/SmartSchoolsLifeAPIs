@@ -8,7 +8,7 @@ namespace SmartSchoolAPI.IDataService
     {
         Task<BaseResponseDTO<DeviceRegistrar_DTO>> GetDevRegIdByAttendantId(string ownerId);
         Task<BaseResponseDTO<DeviceRegistrar_DTO>> UpdateDeviceRegCode(UpdateDeviceRegistrarRequest updateDeviceRegistrarRequest);
-        Task<BaseResponseDTO<DeviceRegistrar_DTO>> AddDeviceRegCode(AddDeviceRegistrarRequest addDeviceRegistrarRequest);
+        Task<BaseResponseDTO<DeviceRegistrar_DTO>> AddOrUpdateDeviceRegistrar(AddDeviceRegistrarRequest addDeviceRegistrarRequest);
         Task<BaseResponseDTO<string>> SendFCM(string receiverToken, string title, string message, string type, string sound);
     }
 }
